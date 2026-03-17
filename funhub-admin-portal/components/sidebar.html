@@ -1,0 +1,34 @@
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <img src="../assets/logo.png" alt="FunHub">
+    <div class="sub">Admin Portal Guide</div>
+  </div>
+  <div class="sidebar-search"><input type="text" placeholder="🔍  Search sections..." oninput="filterNav(this.value)"></div>
+  <div class="sidebar-nav" id="navList">
+    <div class="nav-group">Getting Started</div>
+    <div class="nav-item active" onclick="showPage('home')" data-label="overview home"><span class="icon">🏠</span> Overview</div>
+    <div class="nav-group">Core Sections</div>
+    <div class="nav-item" onclick="showPage('dashboard')" data-label="dashboard stats pending"><span class="icon">📊</span> Dashboard</div>
+    <div class="nav-item" onclick="showPage('users')" data-label="users accounts comments referrals blacklist"><span class="icon">👥</span> Users</div>
+    <div class="nav-item" onclick="showPage('sales')" data-label="sales funcard credits coin packages"><span class="icon">🛒</span> Sales</div>
+    <div class="nav-item" onclick="showPage('transactions')" data-label="transactions purchases redemptions claims coins"><span class="icon">💳</span> Transactions</div>
+    <div class="nav-item" onclick="showPage('articles')" data-label="articles content categories tags archive keywords"><span class="icon">📰</span> Articles</div>
+    <div class="nav-item" onclick="showPage('engagements')" data-label="engagements likes comments seeder followings"><span class="icon">❤️</span> Engagements</div>
+    <div class="nav-group">Rewards &amp; Gamification</div>
+    <div class="nav-item" onclick="showPage('coins')" data-label="coins fun coins balance adjust"><span class="icon">🪙</span> Coins (Fun Coins)</div>
+    <div class="nav-item" onclick="showPage('points')" data-label="points rewards components promo codes adjust"><span class="icon">⭐</span> Points &amp; Rewards</div>
+    <div class="nav-item" onclick="showPage('missions')" data-label="missions tasks verification progressive examples login qr"><span class="icon">🎯</span> Missions</div>
+    <div class="nav-item" onclick="showPage('campaigns')" data-label="campaigns lucky draw collectibles badges reservations rewards"><span class="icon">🎪</span> Campaigns</div>
+    <div class="nav-item" onclick="showPage('approvals')" data-label="approvals queue approve reject"><span class="icon">✅</span> Approvals</div>
+    <div class="nav-group">App &amp; Communications</div>
+    <div class="nav-item" onclick="showPage('mobile')" data-label="mobile banners popup splash fungo"><span class="icon">📱</span> Mobile</div>
+    <div class="nav-item" onclick="showPage('notifications')" data-label="notifications push templates placeholders purchase"><span class="icon">🔔</span> Notifications</div>
+    <div class="nav-item" onclick="showPage('locations')" data-label="locations cities checkin"><span class="icon">📍</span> Locations</div>
+    <div class="nav-group">Admin &amp; Finance</div>
+    <div class="nav-item" onclick="showPage('settings')" data-label="settings config maintenance applications"><span class="icon">⚙️</span> Settings</div>
+    <div class="nav-item" onclick="showPage('finance')" data-label="finance revenue settlement liability export"><span class="icon">💰</span> Finance Reports</div>
+    <div class="nav-item" onclick="showPage('marketing')" data-label="marketing analytics campaign spend roi"><span class="icon">📈</span> Marketing Analytics</div>
+    <div class="nav-item" onclick="showPage('roles')" data-label="roles permissions staff access admin"><span class="icon">🔐</span> Roles &amp; Permissions</div>
+    <div class="nav-item" onclick="showPage('helpcenter')" data-label="help center faq support advanced search bulk"><span class="icon">🆘</span> Help Center</div>
+  </div>
+</nav>

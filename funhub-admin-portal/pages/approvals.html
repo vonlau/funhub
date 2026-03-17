@@ -1,0 +1,17 @@
+<div class="page" id="page-approvals"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#22c55e">✅</div>
+  <div><h1>Approvals</h1><p>A single queue of requests that need an admin to approve or reject before the action takes effect.</p></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">What Approvals Is For</div>
+      <div class="card-summary">Currently used for <strong>point distribution</strong> and <strong>coin distribution</strong> requests. When a bulk points/coins action is submitted (e.g. via Advanced Search), it enters this queue instead of applying immediately — giving a second admin a chance to review before anything is credited.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('what_approvals_is_for')">
+      <span class="toggle-label" id="lbl-what_approvals_is_for">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-what_approvals_is_for"><div class="emechanic"><div class="emechanic-title">⚙️ How it works</div><ul><li>Each row shows what is being requested (e.g. "Give user X 500 points") and who submitted it.</li><li>You review the request and either <strong>Approve</strong> (the system credits the points/coins) or <strong>Reject</strong> (nothing happens).</li><li>Approvals keep a record of who approved what and when — useful for audit purposes.</li><li>Only <strong>admins who have been assigned the Approvals permission</strong> can see and action items in this queue.</li></ul></div><div class="ecallout warn"><span>⚠️</span><div><strong>Assigned admins only.</strong> Not all admin accounts can approve. Make sure the right staff have the Approvals permission under Roles & Permissions.</div></div></div>
+</div></div>

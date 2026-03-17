@@ -1,0 +1,55 @@
+<div class="page" id="page-notifications"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#3b82f6">🔔</div>
+  <div><h1>Notifications</h1><p>Send messages to users and manage reusable notification templates for automated purchase confirmations.</p></div>
+</div>
+<div class="section-label">System Notifications</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📣</div>
+    <div class="card-content">
+      <div class="card-title">Send Notification</div>
+      <div class="card-summary">Create a notification with a title, body, optional image/link, and audience. Send immediately or schedule for later. Track delivery status (sent / processing / failed).</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Notification Templates</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📝</div>
+    <div class="card-content">
+      <div class="card-title">What Are Templates?</div>
+      <div class="card-summary">A reusable message you write once and attach to a specific action (e.g. "after buying a FunCard"). The system fills in placeholders like <code>{{user_name}}</code> with real data for each user.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('what_are_templates?')">
+      <span class="toggle-label" id="lbl-what_are_templates?">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-what_are_templates?"><table class="etable"><thead><tr><th>Field</th><th>What it means</th></tr></thead><tbody><tr><td>Name</td><td>Your internal label (e.g. "Fun Card Purchase Confirmation")</td></tr><tr><td>Code</td><td>Unique short name used by the system (e.g. <code>product_purchase</code>)</td></tr><tr><td>Category</td><td>Optional grouping (e.g. "purchase", "reward")</td></tr><tr><td>Title (EN/CN)</td><td>Notification heading — can include placeholders</td></tr><tr><td>Message (EN/CN)</td><td>Body text — can include placeholders</td></tr><tr><td>URL</td><td>Optional deep link (e.g. to order history)</td></tr><tr><td>Active</td><td>Only active templates appear when setting up FunCards or packages</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong>Templates are only used in two places:</strong> FunCard (product) purchases and Coin Package purchases. All other notifications use their own separate system.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎴</div>
+    <div class="card-content">
+      <div class="card-title">FunCard Purchase Template</div>
+      <div class="card-summary">Attached to a FunCard under Sales → Products → Enable Purchase Notification.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('funcard_purchase_template')">
+      <span class="toggle-label" id="lbl-funcard_purchase_template">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-funcard_purchase_template"><div class="section-label">Available placeholders</div><table class="etable"><thead><tr><th>Placeholder</th><th>What it inserts</th></tr></thead><tbody><tr><td><code>{product_name}</code></td><td>Name of the FunCard bought</td></tr><tr><td><code>{user_name}</code></td><td>The user's name</td></tr><tr><td><code>{amount}</code></td><td>Amount paid</td></tr><tr><td><code>{transaction_no}</code></td><td>Transaction reference number</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong>Example:</strong> "Hi {user_name}, your purchase of {product_name} for RM {amount} is confirmed. Ref: {transaction_no}."</div></div><div class="ecallout tip"><span>💡</span><div><strong>No template?</strong> A default "Fun Card Purchase Successful" message is sent automatically.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📦</div>
+    <div class="card-content">
+      <div class="card-title">Coin Package Purchase Template</div>
+      <div class="card-summary">Attached to a Coin Package under Sales → Coin Packages → Enable Purchase Notification. A template is required when this is turned on.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('coin_package_purchase_template')">
+      <span class="toggle-label" id="lbl-coin_package_purchase_template">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-coin_package_purchase_template"><div class="section-label">Available placeholders</div><table class="etable"><thead><tr><th>Placeholder</th><th>What it inserts</th></tr></thead><tbody><tr><td><code>{package_name}</code></td><td>Name of the coin package</td></tr><tr><td><code>{user_name}</code></td><td>The user's name</td></tr><tr><td><code>{amount}</code></td><td>Amount paid</td></tr><tr><td><code>{base_coins}</code></td><td>Base coins in the package</td></tr><tr><td><code>{bonus_coins}</code></td><td>Bonus coins received</td></tr><tr><td><code>{total_coins}</code></td><td>Total coins credited</td></tr><tr><td><code>{transaction_no}</code></td><td>Transaction reference</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong>Example:</strong> "You received {total_coins} coins ({base_coins} + {bonus_coins} bonus). Thank you, {user_name}!"</div></div></div>
+</div></div>

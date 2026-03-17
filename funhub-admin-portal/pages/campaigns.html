@@ -1,0 +1,144 @@
+<div class="page" id="page-campaigns"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#7c3aed">🎪</div>
+  <div><h1>Campaigns</h1><p>Create and manage time-limited promotions — with a lucky draw, collectibles, and/or event missions — all in one place.</p></div>
+</div>
+<div class="ecallout info"><span>ℹ️</span><div><strong>What is a Campaign?</strong> A campaign is the container for one promotion — e.g. CNY 2026 Lucky Draw or Collect &amp; Win. Inside it you can set up a lucky draw (reward pool), a collectible set, and/or a mission with tasks. Everything runs under the same schedule and visibility settings.</div></div>
+<div class="section-label">Campaign Setup</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🚀</div>
+    <div class="card-content">
+      <div class="card-title">Campaign Setup — Step by Step</div>
+      <div class="card-summary">New to campaigns? Follow these 5 steps to get one live from scratch.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('campaign_setup_—_step_by_step')">
+      <span class="toggle-label" id="lbl-campaign_setup_—_step_by_step">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-campaign_setup_—_step_by_step"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>Create the Campaign</strong><p>Go to Campaigns → Create. Set the name, dates, and enable the features you need (Reward Pool, Collectibles, Event Mission). Save — the campaign is in draft, not live yet.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Manage Reward Pool → Create Reward Pool</strong><p>Open the campaign → Campaign Collectibles → Manage Reward Pool → Create Reward Pool. Give it a name, tick <strong>Is Default Pool</strong>, and set <strong>Fun Points Per Draw</strong> if users can spend points to draw (leave empty to disable).</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Add Items to the Pool</strong><p>Inside the pool, click Add Item for each prize. Set Reward Type, Percentage, and Quantity.</p><table class="etable"><thead><tr><th>Reward Type</th><th>What to prepare beforehand</th></tr></thead><tbody><tr><td>Reward Component</td><td>Pre-create under Points &amp; Rewards → Reward Components</td></tr><tr><td>Promotion Code</td><td>Pre-create under Points &amp; Rewards → Promotion Code Groups</td></tr><tr><td>Better Luck Next Time</td><td>No setup needed — always add one with unlimited quantity as fallback</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Pre-create reward components and promo codes first.</strong> You cannot create them from inside the pool. Set them up under Points &amp; Rewards before coming back here.</div></div></div></div><div class="estep"><div class="estep-num">4</div><div><strong>Create the Mission</strong><p>Campaign → Event Mission → Create Mission. Set name, visibility, repeat type, and <strong>Completion Draw Chances</strong> (bonus draw entries when a user finishes all tasks).</p></div></div><div class="estep"><div class="estep-num">5</div><div><strong>Add Mission Items (Tasks)</strong><p>Inside the mission, click Add Mission Item for each task.</p><table class="etable"><thead><tr><th>Setting</th><th>What to set</th></tr></thead><tbody><tr><td>Mission Type</td><td>The action — QR Scan, Product Purchase, Custom Action, Manual</td></tr><tr><td>Is Progressive</td><td>On if the task must be done multiple times — set Target Count</td></tr><tr><td>Draw Chances Reward</td><td>Draw entries given when the task is completed</td></tr><tr><td>Points Reward</td><td>Fun Points given on task completion</td></tr><tr><td>Total Quantity</td><td>Cap on total completions across all users (leave empty = unlimited)</td></tr><tr><td>Prerequisites</td><td>Tasks that must be done before this one</td></tr></tbody></table></div></div></div><div class="ecallout tip"><span>💡</span><div><strong>Ready to go live?</strong> Once all pool items total 100% and at least one mission item is active, go back to the campaign and set it to Active + Visible.</div></div></div>
+</div>
+<div class="section-label">Managing Campaigns</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">Campaign List</div>
+      <div class="card-summary">See all campaigns — active, draft, and ended. From the list you can create a new campaign, open an existing one to edit, or view its results (winners, rewards given).</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('campaign_list')">
+      <span class="toggle-label" id="lbl-campaign_list">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-campaign_list"><table class="etable"><thead><tr><th>Status</th><th>What it means</th></tr></thead><tbody><tr><td><span class="tag green">Active</span></td><td>Live — users can see and participate</td></tr><tr><td><span class="tag amber">Draft</span></td><td>Not yet published — still being set up</td></tr><tr><td><span class="tag grey">Ended</span></td><td>Past the end date — no longer accepting participation</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🗂️</div>
+    <div class="card-content">
+      <div class="card-title">Campaign Details</div>
+      <div class="card-summary">The core settings for a campaign.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('campaign_details')">
+      <span class="toggle-label" id="lbl-campaign_details">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-campaign_details"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Title & Description</td><td>The campaign name and what users see in the app</td></tr><tr><td>Start & End Date/Time</td><td>When the campaign runs</td></tr><tr><td>Active / Visible</td><td>Whether it is turned on and shown to users</td></tr><tr><td>Requires Approval</td><td>If ticked, certain user actions (e.g. claiming a reward) go to the Approvals queue first</td></tr><tr><td>Tap Limits</td><td>How often a user can tap or claim (e.g. once per day, with optional cooldown in minutes)</td></tr><tr><td>Features</td><td>Choose which parts to enable: Reward Pool, Collectibles, Event Mission</td></tr></tbody></table></div>
+</div>
+<div class="section-label">Reward Pool (Lucky Draw)</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎰</div>
+    <div class="card-content">
+      <div class="card-title">Manage Reward Pool</div>
+      <div class="card-summary">A campaign can have one reward pool — the "bag" of prizes users draw from. You create the pool first, then add items to it.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('manage_reward_pool')">
+      <span class="toggle-label" id="lbl-manage_reward_pool">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-manage_reward_pool"><div class="emechanic"><div class="emechanic-title">⚙️ How the Lucky Draw Works</div><ul><li>Users spend draw chances (earned from missions) or Fun Points to draw from the pool.</li><li>The system picks one outcome based on each item's win percentage.</li><li>Users will always use <strong>mission draw chances first</strong>, then Fun Points if available.</li><li>If no real prize is available, the user gets the <strong>Better Luck Next Time</strong> fallback.</li><li>Once users have participated, the pool <strong>cannot be changed</strong>.</li></ul></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">➕</div>
+    <div class="card-content">
+      <div class="card-title">Create Reward Pool</div>
+      <div class="card-summary">Set up the lucky draw container for a campaign.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('create_reward_pool')">
+      <span class="toggle-label" id="lbl-create_reward_pool">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-create_reward_pool"><table class="etable"><thead><tr><th>Field</th><th>What it means</th></tr></thead><tbody><tr><td>Name</td><td>Internal name for this pool (e.g. "Night Party Pool")</td></tr><tr><td>Description</td><td>Optional internal notes</td></tr><tr><td>Is Default Pool</td><td>Mark this as the campaign's main pool (only one default allowed per campaign)</td></tr><tr><td>Fun Points Per Draw</td><td>Optional — the number of Fun Points a user spends to do one draw. Leave empty to disable Fun Points draws. Users use mission draw chances first, then Fun Points.</td></tr><tr><td>Is Active</td><td>Whether the pool is active</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎁</div>
+    <div class="card-content">
+      <div class="card-title">Add Item to Pool</div>
+      <div class="card-summary">Each item is one possible outcome in the draw. All active items' percentages must total 100%.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('add_item_to_pool')">
+      <span class="toggle-label" id="lbl-add_item_to_pool">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-add_item_to_pool"><table class="etable"><thead><tr><th>Field</th><th>What it means</th></tr></thead><tbody><tr><td>Reward Type</td><td>What this prize is — choose from three types (see below)</td></tr><tr><td>Percentage</td><td>Win chance for this outcome (0.00–100.00). All active items must total 100%.</td></tr><tr><td>Total Quantity Available</td><td>Stock limit for this prize. Leave empty for unlimited. Once stock runs out, this item is skipped in draws.</td></tr><tr><td>Quantity Given to User</td><td>How many of this reward component the user receives when they win (default: 1)</td></tr><tr><td>Receive Once Per User</td><td>If ticked, each user can only win this prize once in the campaign</td></tr><tr><td>Requires FunCard Purchase</td><td>If ticked, this prize is only available to users who purchased a FunCard during the campaign period</td></tr><tr><td>Is Active</td><td>Toggle this item on or off without deleting it</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Percentages must total exactly 100%.</strong> All active pool items must add up to 100.00%. The system will block publishing if they do not. Inactive items are excluded from the total.</div></div><div class="section-label">Reward Types</div><table class="etable"><thead><tr><th>Type</th><th>When to use it</th></tr></thead><tbody><tr><td>Reward Component</td><td>A defined reward — points, a badge, or a voucher. Created under Points & Rewards → Reward Components.</td></tr><tr><td>Promotion Code</td><td>A code from a Promotion Code Group. Created under Points & Rewards → Promotion Code Groups.</td></tr><tr><td>Better Luck Next Time</td><td>The fallback "no prize" outcome. Must have unlimited quantity so it never runs out. Always include one in every pool.</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Always add a Better Luck Next Time item.</strong> Without a fallback, the system has nothing to give users when other prizes run out or are ineligible. Set it to unlimited quantity.</div></div></div>
+</div>
+<div class="section-label">Collectible Set</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🃏</div>
+    <div class="card-content">
+      <div class="card-title">Collectible Set</div>
+      <div class="card-summary">Users collect items from lucky draws. When they have the full set, they win the completion reward.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('collectible_set')">
+      <span class="toggle-label" id="lbl-collectible_set">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-collectible_set"><div class="emechanic"><div class="emechanic-title">⚙️ How Collectibles Work</div><ul><li>You define the items users need to collect (e.g. Card A, Card B, Card C).</li><li>Users receive collectible items as prizes from the reward pool draws.</li><li>When all requirements are met, the system grants the completion reward automatically.</li><li>If <strong>Repeatable</strong> is on, users can complete the set more than once.</li></ul></div><div class="ecallout warn"><span>⚠️</span><div><strong>Link collectible items to the reward pool.</strong> Collectible items must be set as prizes in the reward pool — users collect them by drawing from the pool. A collectible set with no matching pool items will never be completable.</div></div><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Name & Description</td><td>What this collectible set is called</td></tr><tr><td>Repeatable</td><td>Whether users can complete the set multiple times</td></tr><tr><td>Completion Reward</td><td>What users get when they finish — a reward component, badge, or promo code group</td></tr><tr><td>Requirements</td><td>List of items to collect and how many of each (usually 1 per card type)</td></tr></tbody></table></div>
+</div>
+<div class="section-label">Other Campaign Features</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🏆</div>
+    <div class="card-content">
+      <div class="card-title">Lucky Draw Winners</div>
+      <div class="card-summary">After draws are run, see who won which prize. Export the list for prize fulfilment (e.g. physical prizes or vouchers).</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📅</div>
+    <div class="card-content">
+      <div class="card-title">Reservations</div>
+      <div class="card-summary">Users request limited slots (e.g. event seats). Approve to confirm or Reject to decline.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('reservations')">
+      <span class="toggle-label" id="lbl-reservations">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-reservations"><div class="ecallout warn"><span>⚠️</span><div><strong>Add test accounts to Blacklist Seeder first.</strong> Go to Users → Blacklist Seeder before approving reservations so internal accounts don't take real slots.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🏅</div>
+    <div class="card-content">
+      <div class="card-title">Badges</div>
+      <div class="card-summary">Achievements awarded when users meet a set condition. Shown on profiles and can gate who sees an event mission.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎁</div>
+    <div class="card-content">
+      <div class="card-title">Rewards Received</div>
+      <div class="card-summary">Full audit trail of every reward granted by this campaign — from draws, collectibles, or badges. Auto-recorded.</div>
+    </div>
+  </div>
+  
+</div></div>

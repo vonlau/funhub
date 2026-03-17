@@ -1,0 +1,53 @@
+<div class="page" id="page-articles"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#10b981">📰</div>
+  <div><h1>Articles</h1><p>The content management section — create, organise, and publish news, guides, and events visible to users in the app.</p></div>
+</div>
+<div class="section-label">Content</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📄</div>
+    <div class="card-content">
+      <div class="card-title">Articles (Index)</div>
+      <div class="card-summary">Create, edit, publish, or archive articles. Each article has a title, body, categories, tags, status, and publish date. Only <span class="tag green">Published</span> articles appear in the app.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('articles_(index)')">
+      <span class="toggle-label" id="lbl-articles_(index)">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-articles_(index)"><table class="etable"><thead><tr><th>Status</th><th>What it means</th></tr></thead><tbody><tr><td><span class="tag green">Published</span></td><td>Live and visible to users in the app</td></tr><tr><td><span class="tag amber">Draft</span></td><td>Being written — not visible to users yet</td></tr><tr><td><span class="tag grey">Archived</span></td><td>Removed from the app but kept in records</td></tr></tbody></table></div>
+</div>
+<div class="section-label">Organisation</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📁</div>
+    <div class="card-content">
+      <div class="card-title">Categories</div>
+      <div class="card-summary">Group articles by topic (e.g. "News", "Events"). Users can browse or filter by category in the app.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🏷️</div>
+    <div class="card-content">
+      <div class="card-title">Tags</div>
+      <div class="card-summary">Extra labels for articles. Tags give users another way to search and find content beyond the main categories.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Automation</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔑</div>
+    <div class="card-content">
+      <div class="card-title">Expired Keywords & Auto Archive Keywords</div>
+      <div class="card-summary">Two tools to reduce manual clean-up.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('expired_keywords__auto_archive')">
+      <span class="toggle-label" id="lbl-expired_keywords__auto_archive">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-expired_keywords__auto_archive"><p style="font-size:13.5px;color:#3a3a4e;line-height:1.65;margin-bottom:10px;"><strong>Expired Keywords</strong> are old terms the system should ignore in search (e.g. outdated event names).<br><strong>Auto Archive Keywords</strong> (e.g. "ended", "closed") automatically archive articles that contain those words — so you don't have to manually archive every finished promotion.</p><div class="ecallout tip"><span>💡</span><div><strong>Tip:</strong> Set Auto Archive Keywords like "ended" or "sold out" at the start of a campaign. The system will clean up old articles for you automatically.</div></div></div>
+</div></div>

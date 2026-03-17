@@ -1,0 +1,45 @@
+<div class="page" id="page-sales"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#f59e0b">🛒</div>
+  <div><h1>Sales</h1><p>Manage FunCards (products), FunCard Credits, and Coin Packages — everything users can buy in the app.</p></div>
+</div>
+<div class="section-label">FunCards (Products)</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎴</div>
+    <div class="card-content">
+      <div class="card-title">FunCard</div>
+      <div class="card-summary">A FunCard is something you sell in the app — a voucher, event pass, or partner product. Each has a name, price, images, and status.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('funcard')">
+      <span class="toggle-label" id="lbl-funcard">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-funcard"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Status</td><td><span class="tag green">Published</span> = visible &amp; buyable · <span class="tag amber">Draft</span> = hidden · <span class="tag grey">Archived</span> = no longer sold</td></tr><tr><td>Collaboration Coin Conversion</td><td>How many coins the user earns when buying this product (default 1:1, or set Fixed / Percentage)</td></tr><tr><td>Purchase Notification</td><td>Optional message sent to user after payment. Choose a Notification Template. Placeholders: <code>{product_name}</code> <code>{user_name}</code> <code>{amount}</code> <code>{transaction_no}</code></td></tr></tbody></table><div class="section-label">Collaboration Coin Conversion options</div><table class="etable"><thead><tr><th>Option</th><th>How it works</th><th>Example</th></tr></thead><tbody><tr><td>None (default)</td><td>RM 1 = 1 coin</td><td>Pay RM 100 → 100 coins</td></tr><tr><td>Fixed</td><td>Always the same coin amount regardless of price</td><td>Set 30 → always 30 coins</td></tr><tr><td>Percentage</td><td>Coins = % of amount paid</td><td>Set 0.30 → pay RM 100 → 30 coins</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎟️</div>
+    <div class="card-content">
+      <div class="card-title">FunCard Credits</div>
+      <div class="card-summary">Manually grant a FunCard to a user who paid outside the app (e.g. cash or bank transfer).</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('funcard_credits')">
+      <span class="toggle-label" id="lbl-funcard_credits">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-funcard_credits"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>Find the user</strong><p>Search by name or ID.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Choose the FunCard</strong><p>Select the product they paid for.</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Add reference info</strong><p>Payment reference number and notes for records.</p></div></div><div class="estep"><div class="estep-num">4</div><div><strong>Save</strong><p>The system records it as a FunCard purchase for that user.</p></div></div></div></div>
+</div>
+<div class="section-label">Coin Packages</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📦</div>
+    <div class="card-content">
+      <div class="card-title">Coin Packages</div>
+      <div class="card-summary">Purchasable Fun Coin bundles (e.g. "Pay RM 10, get 10 base + 2 bonus coins"). Managed here under Sales.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('coin_packages')">
+      <span class="toggle-label" id="lbl-coin_packages">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-coin_packages"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Price</td><td>What the user pays (e.g. RM 19.90)</td></tr><tr><td>Base Coins</td><td>Standard coins always received</td></tr><tr><td>Bonus Coins</td><td>Extra coins for repeat purchases</td></tr><tr><td>First-Purchase Bonus</td><td>Extra coins only on the user's very first coin buy — package bonus does NOT apply on that first purchase to avoid double bonus</td></tr><tr><td>Purchase Notification</td><td>Message sent after payment. Must choose a template. Placeholders: <code>{package_name}</code> <code>{total_coins}</code> <code>{base_coins}</code> <code>{bonus_coins}</code> <code>{transaction_no}</code></td></tr></tbody></table><div class="emechanic"><div class="emechanic-title">⚙️ First vs Repeat Purchase Logic</div><ul><li><strong>First purchase</strong> — first-purchase bonus applies. Package bonus (+X coins) does NOT apply.</li><li><strong>Repeat purchase</strong> — package bonus applies. First-purchase bonus does not.</li><li>Example: Starter Pack = 19 base + 5 bonus. First-purchase bonus = +20%. First time: 19 + 20% ≈ 23 coins. Next time: 19 + 5 = 24 coins.</li></ul></div></div>
+</div></div>

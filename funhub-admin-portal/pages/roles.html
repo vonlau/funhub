@@ -1,0 +1,40 @@
+<div class="page" id="page-roles"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#1a1a2e">🔐</div>
+  <div><h1>Roles & Permissions</h1><p>Control which admin staff can access which parts of the portal.</p></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👤</div>
+    <div class="card-content">
+      <div class="card-title">Roles</div>
+      <div class="card-summary">Each role is a named set of permissions (e.g. "Content Editor", "Finance Viewer"). Assign a role to each staff member to control their access.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('roles')">
+      <span class="toggle-label" id="lbl-roles">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-roles"><table class="etable"><thead><tr><th>Example Role</th><th>Typical Permissions</th></tr></thead><tbody><tr><td>Super Admin</td><td>Full access to everything</td></tr><tr><td>Content Editor</td><td>Articles, Categories, Tags only</td></tr><tr><td>Finance Viewer</td><td>Finance Reports and Transactions — read only</td></tr><tr><td>Support Staff</td><td>Users, Approvals, Help Center</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔑</div>
+    <div class="card-content">
+      <div class="card-title">Permissions</div>
+      <div class="card-summary">Individual access flags for each section — View, Create, Edit, Delete. Permissions are grouped by module and assigned via roles.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👥</div>
+    <div class="card-content">
+      <div class="card-title">Staff Accounts</div>
+      <div class="card-summary">The list of admin portal users. Assign roles here. Deactivate accounts when staff leave.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('staff_accounts')">
+      <span class="toggle-label" id="lbl-staff_accounts">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-staff_accounts"><div class="ecallout warn"><span>⚠️</span><div><strong>Principle of least access:</strong> Only give staff the permissions they need for their role. Avoid giving broad access to avoid accidental changes.</div></div></div>
+</div></div>

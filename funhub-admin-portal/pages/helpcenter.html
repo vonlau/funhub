@@ -1,0 +1,49 @@
+<div class="page" id="page-helpcenter"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#ef4444">🆘</div>
+  <div><h1>Help Center</h1><p>Support tools — manage user queries, FAQs, and use Advanced Search to find and bulk-manage users.</p></div>
+</div>
+<div class="section-label">Advanced Search</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔍</div>
+    <div class="card-content">
+      <div class="card-title">Advanced Search</div>
+      <div class="card-summary">Find users based on multiple criteria at once (e.g. "active users in Malaysia with 100+ points"), then export or run bulk actions on the results.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('advanced_search')">
+      <span class="toggle-label" id="lbl-advanced_search">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-advanced_search"><div class="emechanic"><div class="emechanic-title">⚙️ How it works</div><ul><li>Set one or more filters and click Search.</li><li>All filters work together — users must match <strong>every</strong> condition set.</li><li>Your search is remembered so export and bulk actions use the same result set.</li><li>The results table is empty until a search is run (to avoid loading all users by accident).</li></ul></div><div class="section-label">Available filters</div><table class="etable"><thead><tr><th>Filter</th><th>What it finds</th></tr></thead><tbody><tr><td>User IDs</td><td>Paste or upload a list of specific user IDs</td></tr><tr><td>Phone Numbers</td><td>Single search or bulk paste/upload</td></tr><tr><td>Account Status</td><td>Active · Suspended · Archived (pick multiple)</td></tr><tr><td>Badge</td><td>Users with specific badge(s), or users with no badges at all</td></tr><tr><td>Registration Date</td><td>Users who joined within a date range</td></tr><tr><td>Point Balance</td><td>Users with points between a min and max</td></tr><tr><td>Coin Balance</td><td>Users with coins between a min and max</td></tr><tr><td>Email Verified</td><td>Yes or No</td></tr><tr><td>Country / State</td><td>Users in a specific region</td></tr><tr><td>Referred By</td><td>Users referred by a specific user ID</td></tr></tbody></table><div class="section-label">Bulk actions after search</div><table class="etable"><thead><tr><th>Action</th><th>What it does</th></tr></thead><tbody><tr><td>Bulk Points</td><td>Add or subtract Fun Points for all selected users</td></tr><tr><td>Bulk Coins</td><td>Add or subtract Fun Coins for all selected users</td></tr><tr><td>Bulk Status Update</td><td>Change account status (Active / Suspended / Archived) in bulk</td></tr><tr><td>Bulk Notification</td><td>Send an in-app + push notification to all selected users</td></tr><tr><td>Bulk SMS</td><td>Send an SMS to all selected users</td></tr><tr><td>Bulk Roles</td><td>Assign or remove roles for all selected users</td></tr></tbody></table><div class="ecallout tip"><span>💡</span><div><strong>Background jobs:</strong> Large bulk actions are processed in the background. You get a job ID and can check its status (processing / completed / how many done).</div></div></div>
+</div>
+<div class="section-label">Support</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎫</div>
+    <div class="card-content">
+      <div class="card-title">Support Tickets</div>
+      <div class="card-summary">Tickets submitted by users (e.g. "I didn't receive my reward"). Each has a status (open / in progress / resolved), an assignee, and a category. Reply to the user and mark resolved when done.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">❓</div>
+    <div class="card-content">
+      <div class="card-title">FAQs & FAQ Categories</div>
+      <div class="card-summary">Create and manage frequently asked questions shown in the app's help section. Organise them into categories (e.g. "Account", "Payments") to reduce support tickets.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🗂️</div>
+    <div class="card-content">
+      <div class="card-title">Support Request Categories</div>
+      <div class="card-summary">Define categories for tickets (e.g. "Technical", "Billing") to route and report on them.</div>
+    </div>
+  </div>
+  
+</div></div>

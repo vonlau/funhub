@@ -1,0 +1,66 @@
+<div class="page" id="page-mobile"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#f97316">📱</div>
+  <div><h1>Mobile</h1><p>Manage what users see when they open the app — banners, popups, and launch screens.</p></div>
+</div>
+<div class="section-label">Home Page — Banner Sections</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🖼️</div>
+    <div class="card-content">
+      <div class="card-title">Banners — Home Page</div>
+      <div class="card-summary">The home screen has three distinct banner sections, each serving a different purpose. All are managed here.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('banners_—_home_page')">
+      <span class="toggle-label" id="lbl-banners_—_home_page">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-banners_—_home_page"><div class="section-label">1. Jumbo Section</div><p style="font-size:13.5px;color:#4a4a5e;line-height:1.65;margin-bottom:10px;">The large hero banner at the top of the home screen. Used for big events, paid ad placements, and partner collaborations.</p><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>FunHub big events · paid ad placement · partner collaborations</td></tr><tr><td>Max banners</td><td>5 (only up to 5 can be active at once)</td></tr><tr><td>Each banner has</td><td>Image, title, link (campaign, article, or URL), active period, display order</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong>Links accept both URLs and mobile routes.</strong> Every banner and placement across all sections supports either a full URL (e.g. https://...) or an internal mobile route (e.g. fundeal, fungo, nearby_food) to deep-link directly into a section of the app.</div></div><div class="ecallout warn"><span>⚠️</span><div><strong>Maximum 5 active banners.</strong> If you try to activate a 6th banner, it will not show. Archive or deactivate an existing one first.</div></div><div class="section-label">2. Quick Access Section</div><p style="font-size:13.5px;color:#4a4a5e;line-height:1.65;margin-bottom:10px;">Icon shortcuts that give users fast access to in-app pages — e.g. FunDeal, FunGo, Nearby – Food, Nearby – Leisure.</p><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>In-app page shortcuts — link directly to internal features or pages</td></tr><tr><td>Min placements</td><td>5 (at least 5 must be active at all times)</td></tr><tr><td>Examples</td><td>FunDeal · FunGo · Nearby – Food · Nearby – Leisure</td></tr><tr><td>Each item has</td><td>Icon, label, destination link, display order</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Minimum 5 placements required.</strong> The Quick Access section expects at least 5 items. Fewer than 5 will cause the layout to appear broken on the home screen.</div></div><div class="section-label">3. Grid Section</div><p style="font-size:13.5px;color:#4a4a5e;line-height:1.65;margin-bottom:10px;">A grid of smaller tiles below the Quick Access row. Used for ads, in-app promotions, and announcements.</p><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>Ads placement · in-app promos · announcements</td></tr><tr><td>Min placements</td><td>3 (at least 3 must be active)</td></tr><tr><td>Each tile has</td><td>Image, title, link, active period, display order</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Minimum 3 tiles required.</strong> The grid layout requires at least 3 active tiles to render correctly.</div></div></div>
+</div>
+<div class="section-label">Other App Content</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">💬</div>
+    <div class="card-content">
+      <div class="card-title">Popups</div>
+      <div class="card-summary">Full-screen or modal messages shown on app open. Use for announcements, onboarding tips, or limited-time promotions. Set a display frequency (e.g. once per session).</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🚀</div>
+    <div class="card-content">
+      <div class="card-title">Splash Screen</div>
+      <div class="card-summary">The loading screen users see when the app starts. Upload an image and set its active period.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">FunDeal & FunGo Banners</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🛍️</div>
+    <div class="card-content">
+      <div class="card-title">FunDeal (PV) Banner</div>
+      <div class="card-summary">Banner placements inside the FunDeal section of the app. Used for ads, in-app promotions, and featured deals.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('fundeal_(pv)_banner')">
+      <span class="toggle-label" id="lbl-fundeal_(pv)_banner">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-fundeal_(pv)_banner"><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>Ads placement · in-app promos · featured FunDeal content</td></tr><tr><td>Each banner has</td><td>Image, title, link, active period, display order</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎮</div>
+    <div class="card-content">
+      <div class="card-title">FunGo Banner</div>
+      <div class="card-summary">Banner placements inside the FunGo section of the app. Used for ads, in-app promotions, and game-related announcements.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('fungo_banner')">
+      <span class="toggle-label" id="lbl-fungo_banner">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-fungo_banner"><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>Ads placement · in-app promos · FunGo game announcements</td></tr><tr><td>Each banner has</td><td>Image, title, link, active period, display order</td></tr></tbody></table></div>
+</div></div>

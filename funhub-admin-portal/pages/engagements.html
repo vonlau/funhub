@@ -1,0 +1,39 @@
+<div class="page" id="page-engagements"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#ef4444">❤️</div>
+  <div><h1>Engagements</h1><p>See how users interact with content and each other. Includes a seeder tool to simulate engagement on articles.</p></div>
+</div>
+<div class="section-label">Stats</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📊</div>
+    <div class="card-content">
+      <div class="card-title">Article Engagements</div>
+      <div class="card-summary">Aggregated stats per article: views, likes, comments, and shares. Use this to understand which content is performing best.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👤</div>
+    <div class="card-content">
+      <div class="card-title">User Followings</div>
+      <div class="card-summary">Who follows whom — users or topics. This drives following feeds and notifications. You can audit or moderate follow relationships.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Seeder Control</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🌱</div>
+    <div class="card-content">
+      <div class="card-title">Seeder Control</div>
+      <div class="card-summary">Artificially increase engagement numbers on articles and user follower counts — useful for making new content look more active.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('seeder_control')">
+      <span class="toggle-label" id="lbl-seeder_control">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-seeder_control"><table class="etable"><thead><tr><th>What you can seed</th><th>Effect</th></tr></thead><tbody><tr><td>Article Likes</td><td>Increases the like count on a specific article</td></tr><tr><td>Article Comments</td><td>Adds simulated comments to an article</td></tr><tr><td>User Followings</td><td>Increases the follower count for a user</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Use with care.</strong> Seeded engagement is simulated — not from real users. It affects what users see in the app (like counts, follower numbers). Only use for display or testing purposes.</div></div></div>
+</div></div>

@@ -1,0 +1,52 @@
+<div class="page" id="page-users"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#8b5cf6">👥</div>
+  <div><h1>Users</h1><p>Manage every user account on the platform — view profiles, adjust status, manage badges, and handle referrals.</p></div>
+</div>
+<div class="section-label">User Management</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👤</div>
+    <div class="card-content">
+      <div class="card-title">User Accounts</div>
+      <div class="card-summary">View and edit all registered user accounts. Each user has a name, email, phone, status (Active / Suspended / Archived), point balance, coin balance, and badges.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('user_accounts')">
+      <span class="toggle-label" id="lbl-user_accounts">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-user_accounts"><table class="etable"><thead><tr><th>Field</th><th>What it means</th></tr></thead><tbody><tr><td>Status</td><td>Active = normal access · Suspended = blocked temporarily · Archived = removed</td></tr><tr><td>Account Restricted</td><td>Extra flag limiting certain actions (set via bulk or individual edit)</td></tr><tr><td>Referred By</td><td>The user ID of whoever invited them — used for referral tracking</td></tr><tr><td>Badges</td><td>Achievements earned — shown on profile and used to gate certain content</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">💬</div>
+    <div class="card-content">
+      <div class="card-title">User Comments</div>
+      <div class="card-summary">All comments users have posted on articles. You can moderate or remove comments here.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👥</div>
+    <div class="card-content">
+      <div class="card-title">Referrals</div>
+      <div class="card-summary">Track who referred whom. See how many successful referrals each user has made and whether referral rewards were triggered.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Access Control</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🚫</div>
+    <div class="card-content">
+      <div class="card-title">Blacklist Seeder</div>
+      <div class="card-summary">A list of test or internal accounts that should be excluded from campaigns, lucky draws, and reservations. Always add test accounts here before running promotions.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('blacklist_seeder')">
+      <span class="toggle-label" id="lbl-blacklist_seeder">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-blacklist_seeder"><div class="ecallout warn"><span>⚠️</span><div><strong>Important:</strong> Any account on this list will be skipped during lucky draws and reservation approvals. Keep it up to date before launching any campaign.</div></div></div>
+</div></div>

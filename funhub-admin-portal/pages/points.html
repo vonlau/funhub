@@ -1,0 +1,73 @@
+<div class="page" id="page-points"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#8b5cf6">⭐</div>
+  <div><h1>Points & Rewards</h1><p>Manage user point balances, define reward building blocks, and create promotion codes.</p></div>
+</div>
+<div class="section-label">Points</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">Point Balances</div>
+      <div class="card-summary">See each user's current points balance and transaction history.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">➕➖</div>
+    <div class="card-content">
+      <div class="card-title">Adjust Point Balance</div>
+      <div class="card-summary">Manually add or deduct Fun Points from a specific user.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('adjust_point_balance')">
+      <span class="toggle-label" id="lbl-adjust_point_balance">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-adjust_point_balance"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>Find the user</strong><p>Go to Points and search.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Click Adjust</strong><p>Choose Add or Deduct.</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Enter amount</strong><p>Type the number of points.</p></div></div><div class="estep"><div class="estep-num">4</div><div><strong>Add a reason</strong><p>Optional internal note.</p></div></div><div class="estep"><div class="estep-num">5</div><div><strong>Confirm</strong><p>Applied immediately and logged in the user's history.</p></div></div></div><div class="ecallout warn"><span>⚠️</span><div><strong>Every adjustment is logged.</strong> Large adjustments may require approval via the Approvals queue before taking effect.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">⚙️</div>
+    <div class="card-content">
+      <div class="card-title">Points Settings</div>
+      <div class="card-summary">Global rules — how points are earned, expiry policy, and earning caps. These apply consistently to all users.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Reward Building Blocks</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🧩</div>
+    <div class="card-content">
+      <div class="card-title">Reward Components</div>
+      <div class="card-summary">The building blocks used in Campaigns. Each component defines what a user receives — points, a voucher, a badge, or a promo code. You create them once here, then reuse them across campaign reward pools, collectible requirements, and mission rewards.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('reward_components')">
+      <span class="toggle-label" id="lbl-reward_components">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-reward_components"><table class="etable"><thead><tr><th>Used in</th><th>How</th></tr></thead><tbody><tr><td>Campaign Reward Pool</td><td>Each prize in a lucky draw is a reward component (e.g. "Win 100 points")</td></tr><tr><td>Collectible Set completion</td><td>The reward users get when they finish collecting a full set</td></tr><tr><td>Mission task rewards</td><td>Points or draw chances given when a task is completed</td></tr></tbody></table><div class="ecallout tip"><span>💡</span><div><strong>Think of them as prize templates.</strong> Create a reward component once here, then pick it anywhere a reward is needed.</div></div></div>
+</div>
+<div class="section-label">Promotion Codes</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎫</div>
+    <div class="card-content">
+      <div class="card-title">Promotion Codes</div>
+      <div class="card-summary">Codes users enter in the app to receive a benefit (e.g. 100 points). Set what the code gives, its expiry, and usage limit. The system enforces limits automatically.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📁</div>
+    <div class="card-content">
+      <div class="card-title">Promotion Code Groups</div>
+      <div class="card-summary">Organise codes into groups by campaign. Useful for bulk exports and tracking usage. Code groups can also be used as prizes in campaign reward pools.</div>
+    </div>
+  </div>
+  
+</div></div>

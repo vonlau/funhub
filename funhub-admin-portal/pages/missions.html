@@ -1,0 +1,110 @@
+<div class="page" id="page-missions"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#06b6d4">🎯</div>
+  <div><h1>Missions</h1><p>Missions are sets of tasks users complete during a campaign to earn rewards — from QR scans to daily logins.</p></div>
+</div>
+<div class="ecallout info"><span>ℹ️</span><div><strong>Missions live inside Campaigns.</strong> Each campaign can have one Event Mission containing multiple tasks. Missions can also run standalone (no campaign) for always-on engagement like weekly login challenges.</div></div>
+<div class="section-label">Event Mission Settings</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📅</div>
+    <div class="card-content">
+      <div class="card-title">Event Mission</div>
+      <div class="card-summary">The overall wrapper that holds all tasks — configure the schedule, audience, and completion rewards.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('event_mission')">
+      <span class="toggle-label" id="lbl-event_mission">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-event_mission"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Name & Description</td><td>What the mission is called and what users see (English + Chinese)</td></tr><tr><td>Start & End Date</td><td>When the mission is available. Leave blank for always-on missions.</td></tr><tr><td>Repeat Type</td><td>None · Weekly · On Complete — how the mission resets after a user finishes</td></tr><tr><td>Max Cycles</td><td>How many times a user can complete the whole mission (set Unlimited for ongoing)</td></tr><tr><td>Cooldown Hours</td><td>Wait time before a user can attempt the mission again after completing it</td></tr><tr><td>Visibility</td><td>All users · Selected users (by ID) · Badge holders only</td></tr><tr><td>Completion Points</td><td>Bonus points when the user finishes all required tasks</td></tr><tr><td>Completion Draw Chances</td><td>Bonus draw entries when the user completes the mission</td></tr><tr><td>Active</td><td>Whether the mission is currently turned on</td></tr></tbody></table></div>
+</div>
+<div class="section-label">Mission Item (Task) Settings</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">✅</div>
+    <div class="card-content">
+      <div class="card-title">Mission Items</div>
+      <div class="card-summary">Each task inside an event mission. You control how it is completed, what it rewards, and the order users must do them.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('mission_items')">
+      <span class="toggle-label" id="lbl-mission_items">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-mission_items"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Name & Description</td><td>What the user has to do — shown in English and Chinese</td></tr><tr><td>Mission Type</td><td>How the task is completed — QR Scan, Product Purchase, Custom Action, or Manual</td></tr><tr><td>Verification Type</td><td>Auto = instant completion · <span class="tag amber">Manual</span> = reward is withheld until a staff member approves in the Verification Queue</td></tr><tr><td>Is Optional</td><td>If ticked, this task does not block completing the overall mission</td></tr><tr><td>Is Progressive</td><td>For "do this X times" tasks. Set a target count and reward distribution method.</td></tr><tr><td>Target Count</td><td>How many times the user must perform the action (e.g. 3 for "buy 3 vouchers")</td></tr><tr><td>Reward Distribution</td><td>On Complete (all at 100%) · Per Step · At Milestones</td></tr><tr><td>Points Reward</td><td>Fun Points given on task (or step) completion</td></tr><tr><td>Draw Chances Reward</td><td>Lucky draw entries given on task (or step) completion</td></tr><tr><td>Prerequisites</td><td>Other tasks that must be done first — hold Ctrl/Cmd to select multiple. <strong>Users cannot attempt a task until all its prerequisites are completed.</strong></td></tr><tr><td>Display Order</td><td>The order tasks appear to users in the app</td></tr></tbody></table><div class="emechanic"><div class="emechanic-title">⚙️ How Progressive Tasks Work</div><ul><li>Turn on <strong>Is Progressive</strong> and set a <strong>Target Count</strong>.</li><li>The system tracks user progress (e.g. 1/3, 2/3, 3/3) and shows it in the app.</li><li><strong>On Complete (all at 100%)</strong> — reward only when the user hits the full count.</li><li><strong>Per Step</strong> — reward given every time the user makes one unit of progress.</li><li><strong>At Milestones</strong> — reward at specific checkpoints you define.</li></ul></div></div>
+</div>
+<div class="section-label">Real Examples</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎟️</div>
+    <div class="card-content">
+      <div class="card-title">Example 1 — Purchase 3 Vouchers</div>
+      <div class="card-summary">A progressive Product Purchase task that rewards users only after they buy 3 FunCard vouchers.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('example_1_—_purchase_3_voucher')">
+      <span class="toggle-label" id="lbl-example_1_—_purchase_3_voucher">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-example_1_—_purchase_3_voucher"><table class="etable"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>Mission Type</td><td>Product Purchase</td></tr><tr><td>Verification Type</td><td>Auto</td></tr><tr><td>Is Progressive</td><td>✅ Yes — Target Count: 3</td></tr><tr><td>Reward Distribution</td><td>On Complete (all at 100%) — reward after the 3rd purchase only</td></tr><tr><td>Prerequisites</td><td>None</td></tr></tbody></table><div class="ecallout tip"><span>💡</span><div><strong></strong> The system counts each purchase automatically. Users see their progress (1/3, 2/3) in the app.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📱</div>
+    <div class="card-content">
+      <div class="card-title">Example 2 — Complete 3 Games via QR Scan</div>
+      <div class="card-summary">Users scan 3 different QR codes at game stations. No set order required.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('example_2_—_complete_3_games_v')">
+      <span class="toggle-label" id="lbl-example_2_—_complete_3_games_v">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-example_2_—_complete_3_games_v"><table class="etable"><thead><tr><th>Task</th><th>Type</th><th>Prerequisites</th><th>Points</th></tr></thead><tbody><tr><td>Scan QR 1</td><td>QR Scan</td><td>None</td><td>0</td></tr><tr><td>Scan QR 2</td><td>QR Scan</td><td>None</td><td>0</td></tr><tr><td>Scan QR 3</td><td>QR Scan</td><td>None</td><td>0</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong></strong> The 10,000 Completion Points are set at the mission level and awarded only when all 3 scans are done.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🪙</div>
+    <div class="card-content">
+      <div class="card-title">Example 3 — Purchase Coin Package</div>
+      <div class="card-summary">Rewards users each time they buy a coin package — repeats indefinitely.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('example_3_—_purchase_coin_pack')">
+      <span class="toggle-label" id="lbl-example_3_—_purchase_coin_pack">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-example_3_—_purchase_coin_pack"><table class="etable"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>Mission Type</td><td>Product Purchase</td></tr><tr><td>Is Progressive</td><td>❌ No — single purchase is enough</td></tr><tr><td>Completion Points</td><td>333 (set at mission level)</td></tr><tr><td>Repeat Type</td><td>On Complete</td></tr><tr><td>Max Cycles</td><td>Unlimited — users earn rewards every time they buy, not just the first time</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📅</div>
+    <div class="card-content">
+      <div class="card-title">Example 4 — 7-Day Weekly Login Challenge</div>
+      <div class="card-summary">Users log in daily for 7 days. Each day unlocks the next. Resets every Monday.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('example_4_—_7-day_weekly_login')">
+      <span class="toggle-label" id="lbl-example_4_—_7-day_weekly_login">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-example_4_—_7-day_weekly_login"><table class="etable"><thead><tr><th>Task</th><th>Type</th><th>Prerequisites</th><th>Points</th></tr></thead><tbody><tr><td>Day 1 Login</td><td>Custom Action</td><td>None</td><td>2</td></tr><tr><td>Day 2 Login</td><td>Custom Action</td><td>Day 1 Login</td><td>4</td></tr><tr><td>Day 3 Login</td><td>Custom Action</td><td>Day 2 Login</td><td>6</td></tr><tr><td>Day 4 Login</td><td>Custom Action</td><td>Day 3 Login</td><td>8</td></tr><tr><td>Day 5 Login</td><td>Custom Action</td><td>Day 4 Login</td><td>12</td></tr><tr><td>Day 6 Login</td><td>Custom Action</td><td>Day 5 Login</td><td>14</td></tr><tr><td>Day 7 Login — Bonus!</td><td>Custom Action</td><td>Days 1–6 (all)</td><td>28</td></tr></tbody></table><div class="emechanic"><div class="emechanic-title">⚙️ Key settings</div><ul><li><strong>Repeat Type: Weekly</strong> — resets every Monday so users can earn again the next week.</li><li><strong>Max Cycles: Unlimited</strong> — users can earn rewards every week indefinitely.</li><li>Prerequisites chain Day 1 → Day 2 → ... → Day 7 to encourage daily return.</li><li><strong>Day 7 requires all 6 previous days</strong> — users must complete the full chain for the bonus.</li><li><strong>Not linked to a campaign</strong> — this is a standalone always-on mission.</li></ul></div></div>
+</div>
+<div class="section-label">Verification & Tracking</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔍</div>
+    <div class="card-content">
+      <div class="card-title">Mission Verification Queue</div>
+      <div class="card-summary">When a task has Verification Type: Manual, user submissions appear here as Pending. Staff review and approve or reject each one.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('mission_verification_queue')">
+      <span class="toggle-label" id="lbl-mission_verification_queue">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-mission_verification_queue"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>User submits</strong><p>Their task completion appears in the queue as Pending.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Staff reviews</strong><p>Check the proof or details provided.</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Approve or Reject</strong><p>Approved = task complete, reward given automatically. Rejected = no reward, user notified.</p></div></div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📈</div>
+    <div class="card-content">
+      <div class="card-title">Mission Tracker</div>
+      <div class="card-summary">A reporting view of who completed which task, when, and whether it was verified. Use this to investigate support queries like "Why didn't I get my reward?"</div>
+    </div>
+  </div>
+  
+</div></div>
