@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FunHub Admin Portal — Team Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4f0; --sidebar-bg:#1a1a2e; --sidebar-hover:#252540;
+  --accent:#e8533a; --text:#1c1c2e; --text-light:#6b6b80;
+  --border:#e4e2d8; --card-bg:#ffffff; --expand-bg:#f9f8f4;
+  --warn-bg:#fff8ed; --warn-border:#f5a623;
+  --tip-bg:#f0fdf4;  --tip-border:#22c55e;
+  --info-bg:#eff6ff; --info-border:#3b82f6;
+  --tag-green-bg:#e8f5e9; --tag-green:#2e7d32;
+  --tag-amber-bg:#fff8e1; --tag-amber:#e65100;
+  --tag-grey-bg:#f0f0f0;  --tag-grey:#555;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
+
+/* sidebar */
+#sidebar{width:256px;min-width:256px;background:var(--sidebar-bg);height:100vh;position:sticky;top:0;overflow-y:auto;display:flex;flex-direction:column;z-index:100;}
+#sidebar::-webkit-scrollbar{width:3px;}
+#sidebar::-webkit-scrollbar-thumb{background:#3a3a5c;border-radius:3px;}
+.sidebar-logo{padding:20px 16px 14px;border-bottom:1px solid #252545;}
+.sidebar-logo img{width:140px;display:block;}
+.sidebar-logo .sub{font-size:10px;color:#4a4a65;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;margin-top:6px;}
+.sidebar-search{padding:10px 12px;border-bottom:1px solid #252545;}
+.sidebar-search input{width:100%;background:#252540;border:none;border-radius:8px;padding:7px 11px;color:#ccc;font-size:12.5px;font-family:inherit;outline:none;}
+.sidebar-search input::placeholder{color:#4a4a65;}
+.sidebar-nav{padding:6px 0 24px;}
+.nav-group{font-size:9.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:#333355;padding:14px 16px 4px;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 16px;cursor:pointer;color:#8a8aaa;font-size:12.5px;font-weight:500;border-left:3px solid transparent;transition:all .12s;}
+.nav-item:hover{background:var(--sidebar-hover);color:#ddd;}
+.nav-item.active{background:rgba(232,83,58,.1);color:#fff;border-left-color:var(--accent);font-weight:600;}
+.nav-item .icon{font-size:13px;width:16px;text-align:center;flex-shrink:0;}
+
+/* main */
+#main{flex:1;overflow-y:auto;padding:36px 44px 60px;max-width:820px;}
+.page{display:none;animation:fi .18s ease;}
+.page.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+/* back button */
+.back-btn{display:none;align-items:center;gap:5px;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--text-light);cursor:pointer;margin-bottom:18px;transition:all .12s;font-family:inherit;}
+.back-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+/* page header */
+.page-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--border);}
+.page-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;}
+.page-header h1{font-size:22px;font-weight:800;letter-spacing:-.3px;}
+.page-header p{font-size:13.5px;color:var(--text-light);margin-top:4px;line-height:1.6;}
+
+/* section label */
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.1px;color:#aaa;margin:22px 0 8px;}
+
+/* doc-card */
+.doc-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:14px;margin-bottom:8px;overflow:hidden;transition:border-color .12s;}
+.doc-card:hover{border-color:#ccc9c0;}
+.card-main{padding:16px 18px;display:flex;align-items:flex-start;gap:12px;}
+.card-icon{font-size:19px;flex-shrink:0;margin-top:1px;}
+.card-content{flex:1;}
+.card-title{font-size:14.5px;font-weight:700;margin-bottom:3px;}
+.card-summary{font-size:13.5px;color:#4a4a5e;line-height:1.65;}
+.card-toggle{background:none;border:none;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--accent);padding:0 18px 13px 50px;display:flex;align-items:center;gap:4px;font-family:inherit;opacity:.9;transition:opacity .12s;}
+.card-toggle:hover{opacity:1;}
+.card-expand{display:none;background:var(--expand-bg);border-top:1.5px solid var(--border);padding:16px 18px;}
+.card-expand.open{display:block;}
+
+/* expand internals */
+.esteps{margin:6px 0 2px;}
+.estep{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+.estep-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.estep strong{display:block;font-size:13px;font-weight:700;margin-bottom:2px;}
+.estep p{font-size:12.5px;color:#4a4a5e;line-height:1.6;margin:0;}
+.etable{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0;}
+.etable th{background:var(--sidebar-bg);color:#aaa;padding:7px 11px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.etable td{padding:8px 11px;border-bottom:1px solid var(--border);color:#3a3a4e;vertical-align:top;line-height:1.55;}
+.etable tr:last-child td{border-bottom:none;}
+.etable tr:hover td{background:#f5f4f0;}
+.ecallout{border-radius:9px;padding:10px 14px;margin:10px 0;font-size:12.5px;line-height:1.6;display:flex;gap:8px;align-items:flex-start;}
+.ecallout.warn{background:var(--warn-bg);border-left:3px solid var(--warn-border);}
+.ecallout.tip{background:var(--tip-bg);border-left:3px solid var(--tip-border);}
+.ecallout.info{background:var(--info-bg);border-left:3px solid var(--info-border);}
+.ecallout span{font-size:15px;flex-shrink:0;}
+.ecallout strong{display:block;margin-bottom:1px;font-size:12.5px;}
+.emechanic{background:var(--warn-bg);border:1.5px solid var(--warn-border);border-radius:9px;padding:12px 14px;margin:10px 0;}
+.emechanic-title{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:#b45309;margin-bottom:7px;}
+.emechanic ul{padding-left:15px;}
+.emechanic li{font-size:12.5px;color:#4a3a1e;line-height:1.65;margin-bottom:3px;}
+code{font-family:'JetBrains Mono',monospace;background:#f0eeea;padding:1px 5px;border-radius:4px;font-size:11px;color:#c94028;}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:20px;}
+.tag.green{background:var(--tag-green-bg);color:var(--tag-green);}
+.tag.amber{background:var(--tag-amber-bg);color:var(--tag-amber);}
+.tag.grey{background:var(--tag-grey-bg);color:var(--tag-grey);}
+
+/* overview grid */
+.overview-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px;}
+.ov-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:12px;padding:13px 15px;cursor:pointer;transition:all .12s;display:flex;gap:11px;align-items:flex-start;}
+.ov-card:hover{border-color:var(--accent);box-shadow:0 3px 12px rgba(232,83,58,.1);transform:translateY(-1px);}
+.ov-icon{font-size:18px;width:36px;height:36px;background:#fdf0ed;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ov-title{font-size:13px;font-weight:700;margin-bottom:2px;}
+.ov-desc{font-size:11.5px;color:var(--text-light);line-height:1.45;}
+
+@media(max-width:768px){
+  #sidebar{display:none;}#main{padding:20px 16px;max-width:100%;}
+  .overview-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <img src="data:image/png;base64,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" alt="FunHub">
+    <div class="sub">Admin Portal Guide</div>
+  </div>
+  <div class="sidebar-search"><input type="text" placeholder="🔍  Search sections..." oninput="filterNav(this.value)"></div>
+  <div class="sidebar-nav" id="navList">
+    <div class="nav-group">Getting Started</div>
+    <div class="nav-item active" onclick="showPage('home')" data-label="overview home"><span class="icon">🏠</span> Overview</div>
+    <div class="nav-group">Core Sections</div>
+    <div class="nav-item" onclick="showPage('dashboard')" data-label="dashboard stats pending"><span class="icon">📊</span> Dashboard</div>
+    <div class="nav-item" onclick="showPage('users')" data-label="users accounts comments referrals blacklist"><span class="icon">👥</span> Users</div>
+    <div class="nav-item" onclick="showPage('sales')" data-label="sales funcard credits coin packages"><span class="icon">🛒</span> Sales</div>
+    <div class="nav-item" onclick="showPage('transactions')" data-label="transactions purchases redemptions claims coins"><span class="icon">💳</span> Transactions</div>
+    <div class="nav-item" onclick="showPage('articles')" data-label="articles content categories tags archive keywords"><span class="icon">📰</span> Articles</div>
+    <div class="nav-item" onclick="showPage('engagements')" data-label="engagements likes comments seeder followings"><span class="icon">❤️</span> Engagements</div>
+    <div class="nav-group">Rewards &amp; Gamification</div>
+    <div class="nav-item" onclick="showPage('coins')" data-label="coins fun coins balance adjust"><span class="icon">🪙</span> Coins (Fun Coins)</div>
+    <div class="nav-item" onclick="showPage('points')" data-label="points rewards components promo codes adjust"><span class="icon">⭐</span> Points &amp; Rewards</div>
+    <div class="nav-item" onclick="showPage('missions')" data-label="missions tasks verification progressive examples login qr"><span class="icon">🎯</span> Missions</div>
+    <div class="nav-item" onclick="showPage('campaigns')" data-label="campaigns lucky draw collectibles badges reservations rewards"><span class="icon">🎪</span> Campaigns</div>
+    <div class="nav-item" onclick="showPage('approvals')" data-label="approvals queue approve reject"><span class="icon">✅</span> Approvals</div>
+    <div class="nav-group">App &amp; Communications</div>
+    <div class="nav-item" onclick="showPage('mobile')" data-label="mobile banners popup splash fungo"><span class="icon">📱</span> Mobile</div>
+    <div class="nav-item" onclick="showPage('notifications')" data-label="notifications push templates placeholders purchase"><span class="icon">🔔</span> Notifications</div>
+    <div class="nav-item" onclick="showPage('locations')" data-label="locations cities checkin"><span class="icon">📍</span> Locations</div>
+    <div class="nav-group">Admin &amp; Finance</div>
+    <div class="nav-item" onclick="showPage('settings')" data-label="settings config maintenance applications"><span class="icon">⚙️</span> Settings</div>
+    <div class="nav-item" onclick="showPage('finance')" data-label="finance revenue settlement liability export"><span class="icon">💰</span> Finance Reports</div>
+    <div class="nav-item" onclick="showPage('marketing')" data-label="marketing analytics campaign spend roi"><span class="icon">📈</span> Marketing Analytics</div>
+    <div class="nav-item" onclick="showPage('roles')" data-label="roles permissions staff access admin"><span class="icon">🔐</span> Roles &amp; Permissions</div>
+    <div class="nav-item" onclick="showPage('helpcenter')" data-label="help center faq support advanced search bulk"><span class="icon">🆘</span> Help Center</div>
+  </div>
+</nav>
+<main id="main">
+<div class="page" id="page-home"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#e8533a">🏠</div>
+  <div><h1>FunHub Admin Portal</h1><p>Your team guide to every section of the admin portal. Click any card below to get started.</p></div>
+</div>
+<div class="overview-grid"><div class="ov-card" onclick="showPage('dashboard')"><div class="ov-icon">📊</div><div><div class="ov-title">Dashboard</div><div class="ov-desc">Quick snapshot — pending actions and live stats</div></div></div><div class="ov-card" onclick="showPage('users')"><div class="ov-icon">👥</div><div><div class="ov-title">Users</div><div class="ov-desc">Accounts, badges, referrals, blacklist</div></div></div><div class="ov-card" onclick="showPage('sales')"><div class="ov-icon">🛒</div><div><div class="ov-title">Sales</div><div class="ov-desc">FunCards, credits, coin packages</div></div></div><div class="ov-card" onclick="showPage('transactions')"><div class="ov-icon">💳</div><div><div class="ov-title">Transactions</div><div class="ov-desc">All financial movements</div></div></div><div class="ov-card" onclick="showPage('articles')"><div class="ov-icon">📰</div><div><div class="ov-title">Articles</div><div class="ov-desc">Content, categories, tags</div></div></div><div class="ov-card" onclick="showPage('engagements')"><div class="ov-icon">❤️</div><div><div class="ov-title">Engagements</div><div class="ov-desc">Likes, comments, seeder</div></div></div><div class="ov-card" onclick="showPage('coins')"><div class="ov-icon">🪙</div><div><div class="ov-title">Coins</div><div class="ov-desc">Fun Coin balances &amp; adjust</div></div></div><div class="ov-card" onclick="showPage('points')"><div class="ov-icon">⭐</div><div><div class="ov-title">Points &amp; Rewards</div><div class="ov-desc">Points, reward components, promo codes</div></div></div><div class="ov-card" onclick="showPage('missions')"><div class="ov-icon">🎯</div><div><div class="ov-title">Missions</div><div class="ov-desc">Tasks, verification, examples</div></div></div><div class="ov-card" onclick="showPage('campaigns')"><div class="ov-icon">🎪</div><div><div class="ov-title">Campaigns</div><div class="ov-desc">Lucky draw, collectibles, badges</div></div></div><div class="ov-card" onclick="showPage('approvals')"><div class="ov-icon">✅</div><div><div class="ov-title">Approvals</div><div class="ov-desc">Approve/reject pending actions</div></div></div><div class="ov-card" onclick="showPage('mobile')"><div class="ov-icon">📱</div><div><div class="ov-title">Mobile</div><div class="ov-desc">Banners, popups, splash</div></div></div><div class="ov-card" onclick="showPage('notifications')"><div class="ov-icon">🔔</div><div><div class="ov-title">Notifications</div><div class="ov-desc">Push, templates, placeholders</div></div></div><div class="ov-card" onclick="showPage('locations')"><div class="ov-icon">📍</div><div><div class="ov-title">Locations</div><div class="ov-desc">Cities and check-in spots</div></div></div><div class="ov-card" onclick="showPage('settings')"><div class="ov-icon">⚙️</div><div><div class="ov-title">Settings</div><div class="ov-desc">App config &amp; maintenance</div></div></div><div class="ov-card" onclick="showPage('finance')"><div class="ov-icon">💰</div><div><div class="ov-title">Finance Reports</div><div class="ov-desc">Revenue, costs, settlements</div></div></div><div class="ov-card" onclick="showPage('marketing')"><div class="ov-icon">📈</div><div><div class="ov-title">Marketing Analytics</div><div class="ov-desc">Campaign spend &amp; performance</div></div></div><div class="ov-card" onclick="showPage('roles')"><div class="ov-icon">🔐</div><div><div class="ov-title">Roles &amp; Permissions</div><div class="ov-desc">Admin access levels</div></div></div><div class="ov-card" onclick="showPage('helpcenter')"><div class="ov-icon">🆘</div><div><div class="ov-title">Help Center</div><div class="ov-desc">Advanced search, FAQs, support tickets</div></div></div></div></div>
+<div class="page" id="page-dashboard"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#3b82f6">📊</div>
+  <div><h1>Dashboard</h1><p>The first thing you see when you log in — a live summary of what needs attention and how the platform is performing.</p></div>
+</div>
+<div class="section-label">What you'll find here</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔔</div>
+    <div class="card-content">
+      <div class="card-title">Pending Actions</div>
+      <div class="card-summary">A counter for items waiting on you — approvals, verifications, support tickets. Click through to action them directly.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👥</div>
+    <div class="card-content">
+      <div class="card-title">User Stats</div>
+      <div class="card-summary">Total registered users, new sign-ups today/this week, and active users at a glance.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">💰</div>
+    <div class="card-content">
+      <div class="card-title">Revenue Summary</div>
+      <div class="card-summary">Total sales, coin package purchases, and FunCard transactions for the current period.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎯</div>
+    <div class="card-content">
+      <div class="card-title">Mission & Campaign Activity</div>
+      <div class="card-summary">How many users are participating in active missions and campaigns right now.</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-users"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#8b5cf6">👥</div>
+  <div><h1>Users</h1><p>Manage every user account on the platform — view profiles, adjust status, manage badges, and handle referrals.</p></div>
+</div>
+<div class="section-label">User Management</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👤</div>
+    <div class="card-content">
+      <div class="card-title">User Accounts</div>
+      <div class="card-summary">View and edit all registered user accounts. Each user has a name, email, phone, status (Active / Suspended / Archived), point balance, coin balance, and badges.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('user_accounts')">
+      <span class="toggle-label" id="lbl-user_accounts">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-user_accounts"><table class="etable"><thead><tr><th>Field</th><th>What it means</th></tr></thead><tbody><tr><td>Status</td><td>Active = normal access · Suspended = blocked temporarily · Archived = removed</td></tr><tr><td>Account Restricted</td><td>Extra flag limiting certain actions (set via bulk or individual edit)</td></tr><tr><td>Referred By</td><td>The user ID of whoever invited them — used for referral tracking</td></tr><tr><td>Badges</td><td>Achievements earned — shown on profile and used to gate certain content</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">💬</div>
+    <div class="card-content">
+      <div class="card-title">User Comments</div>
+      <div class="card-summary">All comments users have posted on articles. You can moderate or remove comments here.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👥</div>
+    <div class="card-content">
+      <div class="card-title">Referrals</div>
+      <div class="card-summary">Track who referred whom. See how many successful referrals each user has made and whether referral rewards were triggered.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Access Control</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🚫</div>
+    <div class="card-content">
+      <div class="card-title">Blacklist Seeder</div>
+      <div class="card-summary">A list of test or internal accounts that should be excluded from campaigns, lucky draws, and reservations. Always add test accounts here before running promotions.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('blacklist_seeder')">
+      <span class="toggle-label" id="lbl-blacklist_seeder">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-blacklist_seeder"><div class="ecallout warn"><span>⚠️</span><div><strong>Important:</strong> Any account on this list will be skipped during lucky draws and reservation approvals. Keep it up to date before launching any campaign.</div></div></div>
+</div></div>
+<div class="page" id="page-sales"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#f59e0b">🛒</div>
+  <div><h1>Sales</h1><p>Manage FunCards (products), FunCard Credits, and Coin Packages — everything users can buy in the app.</p></div>
+</div>
+<div class="section-label">FunCards (Products)</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎴</div>
+    <div class="card-content">
+      <div class="card-title">FunCard</div>
+      <div class="card-summary">A FunCard is something you sell in the app — a voucher, event pass, or partner product. Each has a name, price, images, and status.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('funcard')">
+      <span class="toggle-label" id="lbl-funcard">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-funcard"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Status</td><td><span class="tag green">Published</span> = visible &amp; buyable · <span class="tag amber">Draft</span> = hidden · <span class="tag grey">Archived</span> = no longer sold</td></tr><tr><td>Collaboration Coin Conversion</td><td>How many coins the user earns when buying this product (default 1:1, or set Fixed / Percentage)</td></tr><tr><td>Purchase Notification</td><td>Optional message sent to user after payment. Choose a Notification Template. Placeholders: <code>{product_name}</code> <code>{user_name}</code> <code>{amount}</code> <code>{transaction_no}</code></td></tr></tbody></table><div class="section-label">Collaboration Coin Conversion options</div><table class="etable"><thead><tr><th>Option</th><th>How it works</th><th>Example</th></tr></thead><tbody><tr><td>None (default)</td><td>RM 1 = 1 coin</td><td>Pay RM 100 → 100 coins</td></tr><tr><td>Fixed</td><td>Always the same coin amount regardless of price</td><td>Set 30 → always 30 coins</td></tr><tr><td>Percentage</td><td>Coins = % of amount paid</td><td>Set 0.30 → pay RM 100 → 30 coins</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎟️</div>
+    <div class="card-content">
+      <div class="card-title">FunCard Credits</div>
+      <div class="card-summary">Manually grant a FunCard to a user who paid outside the app (e.g. cash or bank transfer).</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('funcard_credits')">
+      <span class="toggle-label" id="lbl-funcard_credits">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-funcard_credits"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>Find the user</strong><p>Search by name or ID.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Choose the FunCard</strong><p>Select the product they paid for.</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Add reference info</strong><p>Payment reference number and notes for records.</p></div></div><div class="estep"><div class="estep-num">4</div><div><strong>Save</strong><p>The system records it as a FunCard purchase for that user.</p></div></div></div></div>
+</div>
+<div class="section-label">Coin Packages</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📦</div>
+    <div class="card-content">
+      <div class="card-title">Coin Packages</div>
+      <div class="card-summary">Purchasable Fun Coin bundles (e.g. "Pay RM 10, get 10 base + 2 bonus coins"). Managed here under Sales.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('coin_packages')">
+      <span class="toggle-label" id="lbl-coin_packages">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-coin_packages"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Price</td><td>What the user pays (e.g. RM 19.90)</td></tr><tr><td>Base Coins</td><td>Standard coins always received</td></tr><tr><td>Bonus Coins</td><td>Extra coins for repeat purchases</td></tr><tr><td>First-Purchase Bonus</td><td>Extra coins only on the user's very first coin buy — package bonus does NOT apply on that first purchase to avoid double bonus</td></tr><tr><td>Purchase Notification</td><td>Message sent after payment. Must choose a template. Placeholders: <code>{package_name}</code> <code>{total_coins}</code> <code>{base_coins}</code> <code>{bonus_coins}</code> <code>{transaction_no}</code></td></tr></tbody></table><div class="emechanic"><div class="emechanic-title">⚙️ First vs Repeat Purchase Logic</div><ul><li><strong>First purchase</strong> — first-purchase bonus applies. Package bonus (+X coins) does NOT apply.</li><li><strong>Repeat purchase</strong> — package bonus applies. First-purchase bonus does not.</li><li>Example: Starter Pack = 19 base + 5 bonus. First-purchase bonus = +20%. First time: 19 + 20% ≈ 23 coins. Next time: 19 + 5 = 24 coins.</li></ul></div></div>
+</div></div>
+<div class="page" id="page-transactions"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#06b6d4">💳</div>
+  <div><h1>Transactions</h1><p>A complete log of every financial movement — product purchases, coin buys, point changes, redemptions, and claims.</p></div>
+</div>
+<div class="section-label">Transaction Types</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🛍️</div>
+    <div class="card-content">
+      <div class="card-title">Product Purchases</div>
+      <div class="card-summary">Every FunCard purchase made in the app. Includes user, product, amount, date, and payment status.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🪙</div>
+    <div class="card-content">
+      <div class="card-title">Coin Transactions</div>
+      <div class="card-summary">All coin credits and debits — from purchases, admin adjustments, and collaboration conversions.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">⭐</div>
+    <div class="card-content">
+      <div class="card-title">Point Transactions</div>
+      <div class="card-summary">All point credits and debits — from missions, promotions, and admin adjustments.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎁</div>
+    <div class="card-content">
+      <div class="card-title">Redemptions</div>
+      <div class="card-summary">Users spending points or coins on rewards. Each record shows what was redeemed, by whom, and when.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">Claims</div>
+      <div class="card-summary">Users claiming rewards they've earned (e.g. from a collectible set or mission completion).</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-articles"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#10b981">📰</div>
+  <div><h1>Articles</h1><p>The content management section — create, organise, and publish news, guides, and events visible to users in the app.</p></div>
+</div>
+<div class="section-label">Content</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📄</div>
+    <div class="card-content">
+      <div class="card-title">Articles (Index)</div>
+      <div class="card-summary">Create, edit, publish, or archive articles. Each article has a title, body, categories, tags, status, and publish date. Only <span class="tag green">Published</span> articles appear in the app.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('articles_(index)')">
+      <span class="toggle-label" id="lbl-articles_(index)">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-articles_(index)"><table class="etable"><thead><tr><th>Status</th><th>What it means</th></tr></thead><tbody><tr><td><span class="tag green">Published</span></td><td>Live and visible to users in the app</td></tr><tr><td><span class="tag amber">Draft</span></td><td>Being written — not visible to users yet</td></tr><tr><td><span class="tag grey">Archived</span></td><td>Removed from the app but kept in records</td></tr></tbody></table></div>
+</div>
+<div class="section-label">Organisation</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📁</div>
+    <div class="card-content">
+      <div class="card-title">Categories</div>
+      <div class="card-summary">Group articles by topic (e.g. "News", "Events"). Users can browse or filter by category in the app.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🏷️</div>
+    <div class="card-content">
+      <div class="card-title">Tags</div>
+      <div class="card-summary">Extra labels for articles. Tags give users another way to search and find content beyond the main categories.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Automation</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔑</div>
+    <div class="card-content">
+      <div class="card-title">Expired Keywords & Auto Archive Keywords</div>
+      <div class="card-summary">Two tools to reduce manual clean-up.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('expired_keywords__auto_archive')">
+      <span class="toggle-label" id="lbl-expired_keywords__auto_archive">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-expired_keywords__auto_archive"><p style="font-size:13.5px;color:#3a3a4e;line-height:1.65;margin-bottom:10px;"><strong>Expired Keywords</strong> are old terms the system should ignore in search (e.g. outdated event names).<br><strong>Auto Archive Keywords</strong> (e.g. "ended", "closed") automatically archive articles that contain those words — so you don't have to manually archive every finished promotion.</p><div class="ecallout tip"><span>💡</span><div><strong>Tip:</strong> Set Auto Archive Keywords like "ended" or "sold out" at the start of a campaign. The system will clean up old articles for you automatically.</div></div></div>
+</div></div>
+<div class="page" id="page-engagements"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#ef4444">❤️</div>
+  <div><h1>Engagements</h1><p>See how users interact with content and each other. Includes a seeder tool to simulate engagement on articles.</p></div>
+</div>
+<div class="section-label">Stats</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📊</div>
+    <div class="card-content">
+      <div class="card-title">Article Engagements</div>
+      <div class="card-summary">Aggregated stats per article: views, likes, comments, and shares. Use this to understand which content is performing best.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👤</div>
+    <div class="card-content">
+      <div class="card-title">User Followings</div>
+      <div class="card-summary">Who follows whom — users or topics. This drives following feeds and notifications. You can audit or moderate follow relationships.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Seeder Control</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🌱</div>
+    <div class="card-content">
+      <div class="card-title">Seeder Control</div>
+      <div class="card-summary">Artificially increase engagement numbers on articles and user follower counts — useful for making new content look more active.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('seeder_control')">
+      <span class="toggle-label" id="lbl-seeder_control">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-seeder_control"><table class="etable"><thead><tr><th>What you can seed</th><th>Effect</th></tr></thead><tbody><tr><td>Article Likes</td><td>Increases the like count on a specific article</td></tr><tr><td>Article Comments</td><td>Adds simulated comments to an article</td></tr><tr><td>User Followings</td><td>Increases the follower count for a user</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Use with care.</strong> Seeded engagement is simulated — not from real users. It affects what users see in the app (like counts, follower numbers). Only use for display or testing purposes.</div></div></div>
+</div></div>
+<div class="page" id="page-coins"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#f59e0b">🪙</div>
+  <div><h1>Coins (Fun Coins)</h1><p>Fun Coins are the in-app currency — earned from purchases, spent on rewards. Manage balances and global coin rules here.</p></div>
+</div>
+<div class="section-label">Coin Management</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">Coin Balances</div>
+      <div class="card-summary">See every user's total coin balance, amount purchased, amount spent, and last activity. Open any user to view their full coin transaction history.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">➕➖</div>
+    <div class="card-content">
+      <div class="card-title">Adjust Coin Balance</div>
+      <div class="card-summary">Manually add or deduct Fun Coins from a specific user — for example to correct an error or resolve a support case.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('adjust_coin_balance')">
+      <span class="toggle-label" id="lbl-adjust_coin_balance">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-adjust_coin_balance"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>Find the user</strong><p>Go to Coin Management and search for the user.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Click Adjust</strong><p>Choose Add or Deduct.</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Enter amount</strong><p>Type the number of coins.</p></div></div><div class="estep"><div class="estep-num">4</div><div><strong>Add a reason</strong><p>Optional note for records (e.g. "Support correction — ticket #123").</p></div></div><div class="estep"><div class="estep-num">5</div><div><strong>Confirm</strong><p>Applied immediately and recorded in the user's coin history.</p></div></div></div><div class="ecallout warn"><span>⚠️</span><div><strong>Every adjustment is logged.</strong> The system records who made the change and when. Only use this for genuine corrections — not as a shortcut for rewards or campaigns.</div></div></div>
+</div>
+<div class="section-label">Settings</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">⚙️</div>
+    <div class="card-content">
+      <div class="card-title">Coin Settings</div>
+      <div class="card-summary">Global rules for Fun Coins — conversion rates, minimum/maximum limits. All coin features in the app follow these settings.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="ecallout info"><span>ℹ️</span><div><strong>Looking for Coin Packages?</strong> Purchasable coin bundles are managed under the <strong>Sales</strong> section.</div></div></div>
+<div class="page" id="page-points"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#8b5cf6">⭐</div>
+  <div><h1>Points & Rewards</h1><p>Manage user point balances, define reward building blocks, and create promotion codes.</p></div>
+</div>
+<div class="section-label">Points</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">Point Balances</div>
+      <div class="card-summary">See each user's current points balance and transaction history.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">➕➖</div>
+    <div class="card-content">
+      <div class="card-title">Adjust Point Balance</div>
+      <div class="card-summary">Manually add or deduct Fun Points from a specific user.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('adjust_point_balance')">
+      <span class="toggle-label" id="lbl-adjust_point_balance">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-adjust_point_balance"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>Find the user</strong><p>Go to Points and search.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Click Adjust</strong><p>Choose Add or Deduct.</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Enter amount</strong><p>Type the number of points.</p></div></div><div class="estep"><div class="estep-num">4</div><div><strong>Add a reason</strong><p>Optional internal note.</p></div></div><div class="estep"><div class="estep-num">5</div><div><strong>Confirm</strong><p>Applied immediately and logged in the user's history.</p></div></div></div><div class="ecallout warn"><span>⚠️</span><div><strong>Every adjustment is logged.</strong> Large adjustments may require approval via the Approvals queue before taking effect.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">⚙️</div>
+    <div class="card-content">
+      <div class="card-title">Points Settings</div>
+      <div class="card-summary">Global rules — how points are earned, expiry policy, and earning caps. These apply consistently to all users.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Reward Building Blocks</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🧩</div>
+    <div class="card-content">
+      <div class="card-title">Reward Components</div>
+      <div class="card-summary">The building blocks used in Campaigns. Each component defines what a user receives — points, a voucher, a badge, or a promo code. You create them once here, then reuse them across campaign reward pools, collectible requirements, and mission rewards.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('reward_components')">
+      <span class="toggle-label" id="lbl-reward_components">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-reward_components"><table class="etable"><thead><tr><th>Used in</th><th>How</th></tr></thead><tbody><tr><td>Campaign Reward Pool</td><td>Each prize in a lucky draw is a reward component (e.g. "Win 100 points")</td></tr><tr><td>Collectible Set completion</td><td>The reward users get when they finish collecting a full set</td></tr><tr><td>Mission task rewards</td><td>Points or draw chances given when a task is completed</td></tr></tbody></table><div class="ecallout tip"><span>💡</span><div><strong>Think of them as prize templates.</strong> Create a reward component once here, then pick it anywhere a reward is needed.</div></div></div>
+</div>
+<div class="section-label">Promotion Codes</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎫</div>
+    <div class="card-content">
+      <div class="card-title">Promotion Codes</div>
+      <div class="card-summary">Codes users enter in the app to receive a benefit (e.g. 100 points). Set what the code gives, its expiry, and usage limit. The system enforces limits automatically.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📁</div>
+    <div class="card-content">
+      <div class="card-title">Promotion Code Groups</div>
+      <div class="card-summary">Organise codes into groups by campaign. Useful for bulk exports and tracking usage. Code groups can also be used as prizes in campaign reward pools.</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-missions"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#06b6d4">🎯</div>
+  <div><h1>Missions</h1><p>Missions are sets of tasks users complete during a campaign to earn rewards — from QR scans to daily logins.</p></div>
+</div>
+<div class="ecallout info"><span>ℹ️</span><div><strong>Missions live inside Campaigns.</strong> Each campaign can have one Event Mission containing multiple tasks. Missions can also run standalone (no campaign) for always-on engagement like weekly login challenges.</div></div>
+<div class="section-label">Event Mission Settings</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📅</div>
+    <div class="card-content">
+      <div class="card-title">Event Mission</div>
+      <div class="card-summary">The overall wrapper that holds all tasks — configure the schedule, audience, and completion rewards.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('event_mission')">
+      <span class="toggle-label" id="lbl-event_mission">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-event_mission"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Name & Description</td><td>What the mission is called and what users see (English + Chinese)</td></tr><tr><td>Start & End Date</td><td>When the mission is available. Leave blank for always-on missions.</td></tr><tr><td>Repeat Type</td><td>None · Weekly · On Complete — how the mission resets after a user finishes</td></tr><tr><td>Max Cycles</td><td>How many times a user can complete the whole mission (set Unlimited for ongoing)</td></tr><tr><td>Cooldown Hours</td><td>Wait time before a user can attempt the mission again after completing it</td></tr><tr><td>Visibility</td><td>All users · Selected users (by ID) · Badge holders only</td></tr><tr><td>Completion Points</td><td>Bonus points when the user finishes all required tasks</td></tr><tr><td>Completion Draw Chances</td><td>Bonus draw entries when the user completes the mission</td></tr><tr><td>Active</td><td>Whether the mission is currently turned on</td></tr></tbody></table></div>
+</div>
+<div class="section-label">Mission Item (Task) Settings</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">✅</div>
+    <div class="card-content">
+      <div class="card-title">Mission Items</div>
+      <div class="card-summary">Each task inside an event mission. You control how it is completed, what it rewards, and the order users must do them.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('mission_items')">
+      <span class="toggle-label" id="lbl-mission_items">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-mission_items"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Name & Description</td><td>What the user has to do — shown in English and Chinese</td></tr><tr><td>Mission Type</td><td>How the task is completed — QR Scan, Product Purchase, Custom Action, or Manual</td></tr><tr><td>Verification Type</td><td>Auto = instant completion · <span class="tag amber">Manual</span> = reward is withheld until a staff member approves in the Verification Queue</td></tr><tr><td>Is Optional</td><td>If ticked, this task does not block completing the overall mission</td></tr><tr><td>Is Progressive</td><td>For "do this X times" tasks. Set a target count and reward distribution method.</td></tr><tr><td>Target Count</td><td>How many times the user must perform the action (e.g. 3 for "buy 3 vouchers")</td></tr><tr><td>Reward Distribution</td><td>On Complete (all at 100%) · Per Step · At Milestones</td></tr><tr><td>Points Reward</td><td>Fun Points given on task (or step) completion</td></tr><tr><td>Draw Chances Reward</td><td>Lucky draw entries given on task (or step) completion</td></tr><tr><td>Prerequisites</td><td>Other tasks that must be done first — hold Ctrl/Cmd to select multiple. <strong>Users cannot attempt a task until all its prerequisites are completed.</strong></td></tr><tr><td>Display Order</td><td>The order tasks appear to users in the app</td></tr></tbody></table><div class="emechanic"><div class="emechanic-title">⚙️ How Progressive Tasks Work</div><ul><li>Turn on <strong>Is Progressive</strong> and set a <strong>Target Count</strong>.</li><li>The system tracks user progress (e.g. 1/3, 2/3, 3/3) and shows it in the app.</li><li><strong>On Complete (all at 100%)</strong> — reward only when the user hits the full count.</li><li><strong>Per Step</strong> — reward given every time the user makes one unit of progress.</li><li><strong>At Milestones</strong> — reward at specific checkpoints you define.</li></ul></div></div>
+</div>
+<div class="section-label">Real Examples</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎟️</div>
+    <div class="card-content">
+      <div class="card-title">Example 1 — Purchase 3 Vouchers</div>
+      <div class="card-summary">A progressive Product Purchase task that rewards users only after they buy 3 FunCard vouchers.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('example_1_—_purchase_3_voucher')">
+      <span class="toggle-label" id="lbl-example_1_—_purchase_3_voucher">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-example_1_—_purchase_3_voucher"><table class="etable"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>Mission Type</td><td>Product Purchase</td></tr><tr><td>Verification Type</td><td>Auto</td></tr><tr><td>Is Progressive</td><td>✅ Yes — Target Count: 3</td></tr><tr><td>Reward Distribution</td><td>On Complete (all at 100%) — reward after the 3rd purchase only</td></tr><tr><td>Prerequisites</td><td>None</td></tr></tbody></table><div class="ecallout tip"><span>💡</span><div><strong></strong> The system counts each purchase automatically. Users see their progress (1/3, 2/3) in the app.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📱</div>
+    <div class="card-content">
+      <div class="card-title">Example 2 — Complete 3 Games via QR Scan</div>
+      <div class="card-summary">Users scan 3 different QR codes at game stations. No set order required.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('example_2_—_complete_3_games_v')">
+      <span class="toggle-label" id="lbl-example_2_—_complete_3_games_v">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-example_2_—_complete_3_games_v"><table class="etable"><thead><tr><th>Task</th><th>Type</th><th>Prerequisites</th><th>Points</th></tr></thead><tbody><tr><td>Scan QR 1</td><td>QR Scan</td><td>None</td><td>0</td></tr><tr><td>Scan QR 2</td><td>QR Scan</td><td>None</td><td>0</td></tr><tr><td>Scan QR 3</td><td>QR Scan</td><td>None</td><td>0</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong></strong> The 10,000 Completion Points are set at the mission level and awarded only when all 3 scans are done.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🪙</div>
+    <div class="card-content">
+      <div class="card-title">Example 3 — Purchase Coin Package</div>
+      <div class="card-summary">Rewards users each time they buy a coin package — repeats indefinitely.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('example_3_—_purchase_coin_pack')">
+      <span class="toggle-label" id="lbl-example_3_—_purchase_coin_pack">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-example_3_—_purchase_coin_pack"><table class="etable"><thead><tr><th>Setting</th><th>Value</th></tr></thead><tbody><tr><td>Mission Type</td><td>Product Purchase</td></tr><tr><td>Is Progressive</td><td>❌ No — single purchase is enough</td></tr><tr><td>Completion Points</td><td>333 (set at mission level)</td></tr><tr><td>Repeat Type</td><td>On Complete</td></tr><tr><td>Max Cycles</td><td>Unlimited — users earn rewards every time they buy, not just the first time</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📅</div>
+    <div class="card-content">
+      <div class="card-title">Example 4 — 7-Day Weekly Login Challenge</div>
+      <div class="card-summary">Users log in daily for 7 days. Each day unlocks the next. Resets every Monday.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('example_4_—_7-day_weekly_login')">
+      <span class="toggle-label" id="lbl-example_4_—_7-day_weekly_login">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-example_4_—_7-day_weekly_login"><table class="etable"><thead><tr><th>Task</th><th>Type</th><th>Prerequisites</th><th>Points</th></tr></thead><tbody><tr><td>Day 1 Login</td><td>Custom Action</td><td>None</td><td>2</td></tr><tr><td>Day 2 Login</td><td>Custom Action</td><td>Day 1 Login</td><td>4</td></tr><tr><td>Day 3 Login</td><td>Custom Action</td><td>Day 2 Login</td><td>6</td></tr><tr><td>Day 4 Login</td><td>Custom Action</td><td>Day 3 Login</td><td>8</td></tr><tr><td>Day 5 Login</td><td>Custom Action</td><td>Day 4 Login</td><td>12</td></tr><tr><td>Day 6 Login</td><td>Custom Action</td><td>Day 5 Login</td><td>14</td></tr><tr><td>Day 7 Login — Bonus!</td><td>Custom Action</td><td>Days 1–6 (all)</td><td>28</td></tr></tbody></table><div class="emechanic"><div class="emechanic-title">⚙️ Key settings</div><ul><li><strong>Repeat Type: Weekly</strong> — resets every Monday so users can earn again the next week.</li><li><strong>Max Cycles: Unlimited</strong> — users can earn rewards every week indefinitely.</li><li>Prerequisites chain Day 1 → Day 2 → ... → Day 7 to encourage daily return.</li><li><strong>Day 7 requires all 6 previous days</strong> — users must complete the full chain for the bonus.</li><li><strong>Not linked to a campaign</strong> — this is a standalone always-on mission.</li></ul></div></div>
+</div>
+<div class="section-label">Verification & Tracking</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔍</div>
+    <div class="card-content">
+      <div class="card-title">Mission Verification Queue</div>
+      <div class="card-summary">When a task has Verification Type: Manual, user submissions appear here as Pending. Staff review and approve or reject each one.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('mission_verification_queue')">
+      <span class="toggle-label" id="lbl-mission_verification_queue">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-mission_verification_queue"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>User submits</strong><p>Their task completion appears in the queue as Pending.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Staff reviews</strong><p>Check the proof or details provided.</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Approve or Reject</strong><p>Approved = task complete, reward given automatically. Rejected = no reward, user notified.</p></div></div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📈</div>
+    <div class="card-content">
+      <div class="card-title">Mission Tracker</div>
+      <div class="card-summary">A reporting view of who completed which task, when, and whether it was verified. Use this to investigate support queries like "Why didn't I get my reward?"</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-campaigns"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#7c3aed">🎪</div>
+  <div><h1>Campaigns</h1><p>Create and manage time-limited promotions — with a lucky draw, collectibles, and/or event missions — all in one place.</p></div>
+</div>
+<div class="ecallout info"><span>ℹ️</span><div><strong>What is a Campaign?</strong> A campaign is the container for one promotion — e.g. CNY 2026 Lucky Draw or Collect &amp; Win. Inside it you can set up a lucky draw (reward pool), a collectible set, and/or a mission with tasks. Everything runs under the same schedule and visibility settings.</div></div>
+<div class="section-label">Campaign Setup</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🚀</div>
+    <div class="card-content">
+      <div class="card-title">Campaign Setup — Step by Step</div>
+      <div class="card-summary">New to campaigns? Follow these 5 steps to get one live from scratch.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('campaign_setup_—_step_by_step')">
+      <span class="toggle-label" id="lbl-campaign_setup_—_step_by_step">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-campaign_setup_—_step_by_step"><div class="esteps"><div class="estep"><div class="estep-num">1</div><div><strong>Create the Campaign</strong><p>Go to Campaigns → Create. Set the name, dates, and enable the features you need (Reward Pool, Collectibles, Event Mission). Save — the campaign is in draft, not live yet.</p></div></div><div class="estep"><div class="estep-num">2</div><div><strong>Manage Reward Pool → Create Reward Pool</strong><p>Open the campaign → Campaign Collectibles → Manage Reward Pool → Create Reward Pool. Give it a name, tick <strong>Is Default Pool</strong>, and set <strong>Fun Points Per Draw</strong> if users can spend points to draw (leave empty to disable).</p></div></div><div class="estep"><div class="estep-num">3</div><div><strong>Add Items to the Pool</strong><p>Inside the pool, click Add Item for each prize. Set Reward Type, Percentage, and Quantity.</p><table class="etable"><thead><tr><th>Reward Type</th><th>What to prepare beforehand</th></tr></thead><tbody><tr><td>Reward Component</td><td>Pre-create under Points &amp; Rewards → Reward Components</td></tr><tr><td>Promotion Code</td><td>Pre-create under Points &amp; Rewards → Promotion Code Groups</td></tr><tr><td>Better Luck Next Time</td><td>No setup needed — always add one with unlimited quantity as fallback</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Pre-create reward components and promo codes first.</strong> You cannot create them from inside the pool. Set them up under Points &amp; Rewards before coming back here.</div></div></div></div><div class="estep"><div class="estep-num">4</div><div><strong>Create the Mission</strong><p>Campaign → Event Mission → Create Mission. Set name, visibility, repeat type, and <strong>Completion Draw Chances</strong> (bonus draw entries when a user finishes all tasks).</p></div></div><div class="estep"><div class="estep-num">5</div><div><strong>Add Mission Items (Tasks)</strong><p>Inside the mission, click Add Mission Item for each task.</p><table class="etable"><thead><tr><th>Setting</th><th>What to set</th></tr></thead><tbody><tr><td>Mission Type</td><td>The action — QR Scan, Product Purchase, Custom Action, Manual</td></tr><tr><td>Is Progressive</td><td>On if the task must be done multiple times — set Target Count</td></tr><tr><td>Draw Chances Reward</td><td>Draw entries given when the task is completed</td></tr><tr><td>Points Reward</td><td>Fun Points given on task completion</td></tr><tr><td>Total Quantity</td><td>Cap on total completions across all users (leave empty = unlimited)</td></tr><tr><td>Prerequisites</td><td>Tasks that must be done before this one</td></tr></tbody></table></div></div></div><div class="ecallout tip"><span>💡</span><div><strong>Ready to go live?</strong> Once all pool items total 100% and at least one mission item is active, go back to the campaign and set it to Active + Visible.</div></div></div>
+</div>
+<div class="section-label">Managing Campaigns</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">Campaign List</div>
+      <div class="card-summary">See all campaigns — active, draft, and ended. From the list you can create a new campaign, open an existing one to edit, or view its results (winners, rewards given).</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('campaign_list')">
+      <span class="toggle-label" id="lbl-campaign_list">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-campaign_list"><table class="etable"><thead><tr><th>Status</th><th>What it means</th></tr></thead><tbody><tr><td><span class="tag green">Active</span></td><td>Live — users can see and participate</td></tr><tr><td><span class="tag amber">Draft</span></td><td>Not yet published — still being set up</td></tr><tr><td><span class="tag grey">Ended</span></td><td>Past the end date — no longer accepting participation</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🗂️</div>
+    <div class="card-content">
+      <div class="card-title">Campaign Details</div>
+      <div class="card-summary">The core settings for a campaign.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('campaign_details')">
+      <span class="toggle-label" id="lbl-campaign_details">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-campaign_details"><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Title & Description</td><td>The campaign name and what users see in the app</td></tr><tr><td>Start & End Date/Time</td><td>When the campaign runs</td></tr><tr><td>Active / Visible</td><td>Whether it is turned on and shown to users</td></tr><tr><td>Requires Approval</td><td>If ticked, certain user actions (e.g. claiming a reward) go to the Approvals queue first</td></tr><tr><td>Tap Limits</td><td>How often a user can tap or claim (e.g. once per day, with optional cooldown in minutes)</td></tr><tr><td>Features</td><td>Choose which parts to enable: Reward Pool, Collectibles, Event Mission</td></tr></tbody></table></div>
+</div>
+<div class="section-label">Reward Pool (Lucky Draw)</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎰</div>
+    <div class="card-content">
+      <div class="card-title">Manage Reward Pool</div>
+      <div class="card-summary">A campaign can have one reward pool — the "bag" of prizes users draw from. You create the pool first, then add items to it.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('manage_reward_pool')">
+      <span class="toggle-label" id="lbl-manage_reward_pool">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-manage_reward_pool"><div class="emechanic"><div class="emechanic-title">⚙️ How the Lucky Draw Works</div><ul><li>Users spend draw chances (earned from missions) or Fun Points to draw from the pool.</li><li>The system picks one outcome based on each item's win percentage.</li><li>Users will always use <strong>mission draw chances first</strong>, then Fun Points if available.</li><li>If no real prize is available, the user gets the <strong>Better Luck Next Time</strong> fallback.</li><li>Once users have participated, the pool <strong>cannot be changed</strong>.</li></ul></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">➕</div>
+    <div class="card-content">
+      <div class="card-title">Create Reward Pool</div>
+      <div class="card-summary">Set up the lucky draw container for a campaign.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('create_reward_pool')">
+      <span class="toggle-label" id="lbl-create_reward_pool">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-create_reward_pool"><table class="etable"><thead><tr><th>Field</th><th>What it means</th></tr></thead><tbody><tr><td>Name</td><td>Internal name for this pool (e.g. "Night Party Pool")</td></tr><tr><td>Description</td><td>Optional internal notes</td></tr><tr><td>Is Default Pool</td><td>Mark this as the campaign's main pool (only one default allowed per campaign)</td></tr><tr><td>Fun Points Per Draw</td><td>Optional — the number of Fun Points a user spends to do one draw. Leave empty to disable Fun Points draws. Users use mission draw chances first, then Fun Points.</td></tr><tr><td>Is Active</td><td>Whether the pool is active</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎁</div>
+    <div class="card-content">
+      <div class="card-title">Add Item to Pool</div>
+      <div class="card-summary">Each item is one possible outcome in the draw. All active items' percentages must total 100%.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('add_item_to_pool')">
+      <span class="toggle-label" id="lbl-add_item_to_pool">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-add_item_to_pool"><table class="etable"><thead><tr><th>Field</th><th>What it means</th></tr></thead><tbody><tr><td>Reward Type</td><td>What this prize is — choose from three types (see below)</td></tr><tr><td>Percentage</td><td>Win chance for this outcome (0.00–100.00). All active items must total 100%.</td></tr><tr><td>Total Quantity Available</td><td>Stock limit for this prize. Leave empty for unlimited. Once stock runs out, this item is skipped in draws.</td></tr><tr><td>Quantity Given to User</td><td>How many of this reward component the user receives when they win (default: 1)</td></tr><tr><td>Receive Once Per User</td><td>If ticked, each user can only win this prize once in the campaign</td></tr><tr><td>Requires FunCard Purchase</td><td>If ticked, this prize is only available to users who purchased a FunCard during the campaign period</td></tr><tr><td>Is Active</td><td>Toggle this item on or off without deleting it</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Percentages must total exactly 100%.</strong> All active pool items must add up to 100.00%. The system will block publishing if they do not. Inactive items are excluded from the total.</div></div><div class="section-label">Reward Types</div><table class="etable"><thead><tr><th>Type</th><th>When to use it</th></tr></thead><tbody><tr><td>Reward Component</td><td>A defined reward — points, a badge, or a voucher. Created under Points & Rewards → Reward Components.</td></tr><tr><td>Promotion Code</td><td>A code from a Promotion Code Group. Created under Points & Rewards → Promotion Code Groups.</td></tr><tr><td>Better Luck Next Time</td><td>The fallback "no prize" outcome. Must have unlimited quantity so it never runs out. Always include one in every pool.</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Always add a Better Luck Next Time item.</strong> Without a fallback, the system has nothing to give users when other prizes run out or are ineligible. Set it to unlimited quantity.</div></div></div>
+</div>
+<div class="section-label">Collectible Set</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🃏</div>
+    <div class="card-content">
+      <div class="card-title">Collectible Set</div>
+      <div class="card-summary">Users collect items from lucky draws. When they have the full set, they win the completion reward.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('collectible_set')">
+      <span class="toggle-label" id="lbl-collectible_set">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-collectible_set"><div class="emechanic"><div class="emechanic-title">⚙️ How Collectibles Work</div><ul><li>You define the items users need to collect (e.g. Card A, Card B, Card C).</li><li>Users receive collectible items as prizes from the reward pool draws.</li><li>When all requirements are met, the system grants the completion reward automatically.</li><li>If <strong>Repeatable</strong> is on, users can complete the set more than once.</li></ul></div><div class="ecallout warn"><span>⚠️</span><div><strong>Link collectible items to the reward pool.</strong> Collectible items must be set as prizes in the reward pool — users collect them by drawing from the pool. A collectible set with no matching pool items will never be completable.</div></div><table class="etable"><thead><tr><th>Setting</th><th>What it means</th></tr></thead><tbody><tr><td>Name & Description</td><td>What this collectible set is called</td></tr><tr><td>Repeatable</td><td>Whether users can complete the set multiple times</td></tr><tr><td>Completion Reward</td><td>What users get when they finish — a reward component, badge, or promo code group</td></tr><tr><td>Requirements</td><td>List of items to collect and how many of each (usually 1 per card type)</td></tr></tbody></table></div>
+</div>
+<div class="section-label">Other Campaign Features</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🏆</div>
+    <div class="card-content">
+      <div class="card-title">Lucky Draw Winners</div>
+      <div class="card-summary">After draws are run, see who won which prize. Export the list for prize fulfilment (e.g. physical prizes or vouchers).</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📅</div>
+    <div class="card-content">
+      <div class="card-title">Reservations</div>
+      <div class="card-summary">Users request limited slots (e.g. event seats). Approve to confirm or Reject to decline.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('reservations')">
+      <span class="toggle-label" id="lbl-reservations">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-reservations"><div class="ecallout warn"><span>⚠️</span><div><strong>Add test accounts to Blacklist Seeder first.</strong> Go to Users → Blacklist Seeder before approving reservations so internal accounts don't take real slots.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🏅</div>
+    <div class="card-content">
+      <div class="card-title">Badges</div>
+      <div class="card-summary">Achievements awarded when users meet a set condition. Shown on profiles and can gate who sees an event mission.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎁</div>
+    <div class="card-content">
+      <div class="card-title">Rewards Received</div>
+      <div class="card-summary">Full audit trail of every reward granted by this campaign — from draws, collectibles, or badges. Auto-recorded.</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-approvals"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#22c55e">✅</div>
+  <div><h1>Approvals</h1><p>A single queue of requests that need an admin to approve or reject before the action takes effect.</p></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">What Approvals Is For</div>
+      <div class="card-summary">Currently used for <strong>point distribution</strong> and <strong>coin distribution</strong> requests. When a bulk points/coins action is submitted (e.g. via Advanced Search), it enters this queue instead of applying immediately — giving a second admin a chance to review before anything is credited.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('what_approvals_is_for')">
+      <span class="toggle-label" id="lbl-what_approvals_is_for">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-what_approvals_is_for"><div class="emechanic"><div class="emechanic-title">⚙️ How it works</div><ul><li>Each row shows what is being requested (e.g. "Give user X 500 points") and who submitted it.</li><li>You review the request and either <strong>Approve</strong> (the system credits the points/coins) or <strong>Reject</strong> (nothing happens).</li><li>Approvals keep a record of who approved what and when — useful for audit purposes.</li><li>Only <strong>admins who have been assigned the Approvals permission</strong> can see and action items in this queue.</li></ul></div><div class="ecallout warn"><span>⚠️</span><div><strong>Assigned admins only.</strong> Not all admin accounts can approve. Make sure the right staff have the Approvals permission under Roles & Permissions.</div></div></div>
+</div></div>
+<div class="page" id="page-mobile"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#f97316">📱</div>
+  <div><h1>Mobile</h1><p>Manage what users see when they open the app — banners, popups, and launch screens.</p></div>
+</div>
+<div class="section-label">Home Page — Banner Sections</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🖼️</div>
+    <div class="card-content">
+      <div class="card-title">Banners — Home Page</div>
+      <div class="card-summary">The home screen has three distinct banner sections, each serving a different purpose. All are managed here.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('banners_—_home_page')">
+      <span class="toggle-label" id="lbl-banners_—_home_page">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-banners_—_home_page"><div class="section-label">1. Jumbo Section</div><p style="font-size:13.5px;color:#4a4a5e;line-height:1.65;margin-bottom:10px;">The large hero banner at the top of the home screen. Used for big events, paid ad placements, and partner collaborations.</p><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>FunHub big events · paid ad placement · partner collaborations</td></tr><tr><td>Max banners</td><td>5 (only up to 5 can be active at once)</td></tr><tr><td>Each banner has</td><td>Image, title, link (campaign, article, or URL), active period, display order</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong>Links accept both URLs and mobile routes.</strong> Every banner and placement across all sections supports either a full URL (e.g. https://...) or an internal mobile route (e.g. fundeal, fungo, nearby_food) to deep-link directly into a section of the app.</div></div><div class="ecallout warn"><span>⚠️</span><div><strong>Maximum 5 active banners.</strong> If you try to activate a 6th banner, it will not show. Archive or deactivate an existing one first.</div></div><div class="section-label">2. Quick Access Section</div><p style="font-size:13.5px;color:#4a4a5e;line-height:1.65;margin-bottom:10px;">Icon shortcuts that give users fast access to in-app pages — e.g. FunDeal, FunGo, Nearby – Food, Nearby – Leisure.</p><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>In-app page shortcuts — link directly to internal features or pages</td></tr><tr><td>Min placements</td><td>5 (at least 5 must be active at all times)</td></tr><tr><td>Examples</td><td>FunDeal · FunGo · Nearby – Food · Nearby – Leisure</td></tr><tr><td>Each item has</td><td>Icon, label, destination link, display order</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Minimum 5 placements required.</strong> The Quick Access section expects at least 5 items. Fewer than 5 will cause the layout to appear broken on the home screen.</div></div><div class="section-label">3. Grid Section</div><p style="font-size:13.5px;color:#4a4a5e;line-height:1.65;margin-bottom:10px;">A grid of smaller tiles below the Quick Access row. Used for ads, in-app promotions, and announcements.</p><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>Ads placement · in-app promos · announcements</td></tr><tr><td>Min placements</td><td>3 (at least 3 must be active)</td></tr><tr><td>Each tile has</td><td>Image, title, link, active period, display order</td></tr></tbody></table><div class="ecallout warn"><span>⚠️</span><div><strong>Minimum 3 tiles required.</strong> The grid layout requires at least 3 active tiles to render correctly.</div></div></div>
+</div>
+<div class="section-label">Other App Content</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">💬</div>
+    <div class="card-content">
+      <div class="card-title">Popups</div>
+      <div class="card-summary">Full-screen or modal messages shown on app open. Use for announcements, onboarding tips, or limited-time promotions. Set a display frequency (e.g. once per session).</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🚀</div>
+    <div class="card-content">
+      <div class="card-title">Splash Screen</div>
+      <div class="card-summary">The loading screen users see when the app starts. Upload an image and set its active period.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">FunDeal & FunGo Banners</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🛍️</div>
+    <div class="card-content">
+      <div class="card-title">FunDeal (PV) Banner</div>
+      <div class="card-summary">Banner placements inside the FunDeal section of the app. Used for ads, in-app promotions, and featured deals.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('fundeal_(pv)_banner')">
+      <span class="toggle-label" id="lbl-fundeal_(pv)_banner">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-fundeal_(pv)_banner"><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>Ads placement · in-app promos · featured FunDeal content</td></tr><tr><td>Each banner has</td><td>Image, title, link, active period, display order</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎮</div>
+    <div class="card-content">
+      <div class="card-title">FunGo Banner</div>
+      <div class="card-summary">Banner placements inside the FunGo section of the app. Used for ads, in-app promotions, and game-related announcements.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('fungo_banner')">
+      <span class="toggle-label" id="lbl-fungo_banner">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-fungo_banner"><table class="etable"><thead><tr><th>Setting</th><th>Detail</th></tr></thead><tbody><tr><td>Purpose</td><td>Ads placement · in-app promos · FunGo game announcements</td></tr><tr><td>Each banner has</td><td>Image, title, link, active period, display order</td></tr></tbody></table></div>
+</div></div>
+<div class="page" id="page-notifications"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#3b82f6">🔔</div>
+  <div><h1>Notifications</h1><p>Send messages to users and manage reusable notification templates for automated purchase confirmations.</p></div>
+</div>
+<div class="section-label">System Notifications</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📣</div>
+    <div class="card-content">
+      <div class="card-title">Send Notification</div>
+      <div class="card-summary">Create a notification with a title, body, optional image/link, and audience. Send immediately or schedule for later. Track delivery status (sent / processing / failed).</div>
+    </div>
+  </div>
+  
+</div>
+<div class="section-label">Notification Templates</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📝</div>
+    <div class="card-content">
+      <div class="card-title">What Are Templates?</div>
+      <div class="card-summary">A reusable message you write once and attach to a specific action (e.g. "after buying a FunCard"). The system fills in placeholders like <code>{{user_name}}</code> with real data for each user.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('what_are_templates?')">
+      <span class="toggle-label" id="lbl-what_are_templates?">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-what_are_templates?"><table class="etable"><thead><tr><th>Field</th><th>What it means</th></tr></thead><tbody><tr><td>Name</td><td>Your internal label (e.g. "Fun Card Purchase Confirmation")</td></tr><tr><td>Code</td><td>Unique short name used by the system (e.g. <code>product_purchase</code>)</td></tr><tr><td>Category</td><td>Optional grouping (e.g. "purchase", "reward")</td></tr><tr><td>Title (EN/CN)</td><td>Notification heading — can include placeholders</td></tr><tr><td>Message (EN/CN)</td><td>Body text — can include placeholders</td></tr><tr><td>URL</td><td>Optional deep link (e.g. to order history)</td></tr><tr><td>Active</td><td>Only active templates appear when setting up FunCards or packages</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong>Templates are only used in two places:</strong> FunCard (product) purchases and Coin Package purchases. All other notifications use their own separate system.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎴</div>
+    <div class="card-content">
+      <div class="card-title">FunCard Purchase Template</div>
+      <div class="card-summary">Attached to a FunCard under Sales → Products → Enable Purchase Notification.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('funcard_purchase_template')">
+      <span class="toggle-label" id="lbl-funcard_purchase_template">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-funcard_purchase_template"><div class="section-label">Available placeholders</div><table class="etable"><thead><tr><th>Placeholder</th><th>What it inserts</th></tr></thead><tbody><tr><td><code>{product_name}</code></td><td>Name of the FunCard bought</td></tr><tr><td><code>{user_name}</code></td><td>The user's name</td></tr><tr><td><code>{amount}</code></td><td>Amount paid</td></tr><tr><td><code>{transaction_no}</code></td><td>Transaction reference number</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong>Example:</strong> "Hi {user_name}, your purchase of {product_name} for RM {amount} is confirmed. Ref: {transaction_no}."</div></div><div class="ecallout tip"><span>💡</span><div><strong>No template?</strong> A default "Fun Card Purchase Successful" message is sent automatically.</div></div></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📦</div>
+    <div class="card-content">
+      <div class="card-title">Coin Package Purchase Template</div>
+      <div class="card-summary">Attached to a Coin Package under Sales → Coin Packages → Enable Purchase Notification. A template is required when this is turned on.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('coin_package_purchase_template')">
+      <span class="toggle-label" id="lbl-coin_package_purchase_template">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-coin_package_purchase_template"><div class="section-label">Available placeholders</div><table class="etable"><thead><tr><th>Placeholder</th><th>What it inserts</th></tr></thead><tbody><tr><td><code>{package_name}</code></td><td>Name of the coin package</td></tr><tr><td><code>{user_name}</code></td><td>The user's name</td></tr><tr><td><code>{amount}</code></td><td>Amount paid</td></tr><tr><td><code>{base_coins}</code></td><td>Base coins in the package</td></tr><tr><td><code>{bonus_coins}</code></td><td>Bonus coins received</td></tr><tr><td><code>{total_coins}</code></td><td>Total coins credited</td></tr><tr><td><code>{transaction_no}</code></td><td>Transaction reference</td></tr></tbody></table><div class="ecallout info"><span>ℹ️</span><div><strong>Example:</strong> "You received {total_coins} coins ({base_coins} + {bonus_coins} bonus). Thank you, {user_name}!"</div></div></div>
+</div></div>
+<div class="page" id="page-locations"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#10b981">📍</div>
+  <div><h1>Locations</h1><p>Manage cities and physical check-in spots used for location-based features in the app.</p></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🏙️</div>
+    <div class="card-content">
+      <div class="card-title">Cities</div>
+      <div class="card-summary">The list of cities available for user profiles and location-based filters. Used in Advanced Search to find users by region.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📍</div>
+    <div class="card-content">
+      <div class="card-title">Check-in Locations</div>
+      <div class="card-summary">Physical spots users can check in to (e.g. a store or event venue). Each location has a name, coordinates, and radius. Linked to QR Scan or Custom Action mission tasks.</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-settings"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#6b7280">⚙️</div>
+  <div><h1>Settings</h1><p>Global app configuration — controls app-wide behaviour, maintenance mode, and connected services.</p></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔧</div>
+    <div class="card-content">
+      <div class="card-title">App Configuration</div>
+      <div class="card-summary">Core settings: app name, default language, currency, and feature flags that control what is enabled across the whole platform.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🛠️</div>
+    <div class="card-content">
+      <div class="card-title">Maintenance Mode</div>
+      <div class="card-summary">Put the app into maintenance mode to prevent user access during updates or fixes. Shows a maintenance message to users.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔗</div>
+    <div class="card-content">
+      <div class="card-title">Connected Applications</div>
+      <div class="card-summary">Third-party integrations and API keys linked to the platform (e.g. payment gateways, SMS providers).</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-finance"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#f59e0b">💰</div>
+  <div><h1>Finance Reports</h1><p>Revenue, cost, settlement, and liability reports for the platform.</p></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📊</div>
+    <div class="card-content">
+      <div class="card-title">Revenue Report</div>
+      <div class="card-summary">Total income from FunCard and Coin Package sales, broken down by period, product, and payment method.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">💸</div>
+    <div class="card-content">
+      <div class="card-title">Settlement Report</div>
+      <div class="card-summary">Amounts to be settled with partners or merchants — who is owed what and for which transactions.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📉</div>
+    <div class="card-content">
+      <div class="card-title">Liability Report</div>
+      <div class="card-summary">Outstanding coin and point balances across all users — the total value the platform owes users in redeemable currency.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📋</div>
+    <div class="card-content">
+      <div class="card-title">Transaction Export</div>
+      <div class="card-summary">Export filtered transaction data as CSV for accounting or reporting purposes.</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-marketing"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#ec4899">📈</div>
+  <div><h1>Marketing Analytics</h1><p>Track campaign spend and performance — how much was spent and what results it drove.</p></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📊</div>
+    <div class="card-content">
+      <div class="card-title">Campaign Performance</div>
+      <div class="card-summary">Compare campaigns side by side: participants, draws used, rewards given, and completion rates.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">💰</div>
+    <div class="card-content">
+      <div class="card-title">Spend vs Results</div>
+      <div class="card-summary">Marketing cost vs engagement metrics — useful for reporting ROI on promotions to stakeholders.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">📤</div>
+    <div class="card-content">
+      <div class="card-title">Export Reports</div>
+      <div class="card-summary">Download analytics data as CSV or PDF for presentations or deeper analysis.</div>
+    </div>
+  </div>
+  
+</div></div>
+<div class="page" id="page-roles"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#1a1a2e">🔐</div>
+  <div><h1>Roles & Permissions</h1><p>Control which admin staff can access which parts of the portal.</p></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👤</div>
+    <div class="card-content">
+      <div class="card-title">Roles</div>
+      <div class="card-summary">Each role is a named set of permissions (e.g. "Content Editor", "Finance Viewer"). Assign a role to each staff member to control their access.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('roles')">
+      <span class="toggle-label" id="lbl-roles">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-roles"><table class="etable"><thead><tr><th>Example Role</th><th>Typical Permissions</th></tr></thead><tbody><tr><td>Super Admin</td><td>Full access to everything</td></tr><tr><td>Content Editor</td><td>Articles, Categories, Tags only</td></tr><tr><td>Finance Viewer</td><td>Finance Reports and Transactions — read only</td></tr><tr><td>Support Staff</td><td>Users, Approvals, Help Center</td></tr></tbody></table></div>
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔑</div>
+    <div class="card-content">
+      <div class="card-title">Permissions</div>
+      <div class="card-summary">Individual access flags for each section — View, Create, Edit, Delete. Permissions are grouped by module and assigned via roles.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">👥</div>
+    <div class="card-content">
+      <div class="card-title">Staff Accounts</div>
+      <div class="card-summary">The list of admin portal users. Assign roles here. Deactivate accounts when staff leave.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('staff_accounts')">
+      <span class="toggle-label" id="lbl-staff_accounts">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-staff_accounts"><div class="ecallout warn"><span>⚠️</span><div><strong>Principle of least access:</strong> Only give staff the permissions they need for their role. Avoid giving broad access to avoid accidental changes.</div></div></div>
+</div></div>
+<div class="page" id="page-helpcenter"><button class="back-btn" onclick="goBack()">← Back</button><div class="page-header">
+  <div class="page-icon" style="background:#ef4444">🆘</div>
+  <div><h1>Help Center</h1><p>Support tools — manage user queries, FAQs, and use Advanced Search to find and bulk-manage users.</p></div>
+</div>
+<div class="section-label">Advanced Search</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🔍</div>
+    <div class="card-content">
+      <div class="card-title">Advanced Search</div>
+      <div class="card-summary">Find users based on multiple criteria at once (e.g. "active users in Malaysia with 100+ points"), then export or run bulk actions on the results.</div>
+    </div>
+  </div>
+  <button class="card-toggle" onclick="toggleCard('advanced_search')">
+      <span class="toggle-label" id="lbl-advanced_search">▼ More details</span>
+    </button>
+    <div class="card-expand" id="exp-advanced_search"><div class="emechanic"><div class="emechanic-title">⚙️ How it works</div><ul><li>Set one or more filters and click Search.</li><li>All filters work together — users must match <strong>every</strong> condition set.</li><li>Your search is remembered so export and bulk actions use the same result set.</li><li>The results table is empty until a search is run (to avoid loading all users by accident).</li></ul></div><div class="section-label">Available filters</div><table class="etable"><thead><tr><th>Filter</th><th>What it finds</th></tr></thead><tbody><tr><td>User IDs</td><td>Paste or upload a list of specific user IDs</td></tr><tr><td>Phone Numbers</td><td>Single search or bulk paste/upload</td></tr><tr><td>Account Status</td><td>Active · Suspended · Archived (pick multiple)</td></tr><tr><td>Badge</td><td>Users with specific badge(s), or users with no badges at all</td></tr><tr><td>Registration Date</td><td>Users who joined within a date range</td></tr><tr><td>Point Balance</td><td>Users with points between a min and max</td></tr><tr><td>Coin Balance</td><td>Users with coins between a min and max</td></tr><tr><td>Email Verified</td><td>Yes or No</td></tr><tr><td>Country / State</td><td>Users in a specific region</td></tr><tr><td>Referred By</td><td>Users referred by a specific user ID</td></tr></tbody></table><div class="section-label">Bulk actions after search</div><table class="etable"><thead><tr><th>Action</th><th>What it does</th></tr></thead><tbody><tr><td>Bulk Points</td><td>Add or subtract Fun Points for all selected users</td></tr><tr><td>Bulk Coins</td><td>Add or subtract Fun Coins for all selected users</td></tr><tr><td>Bulk Status Update</td><td>Change account status (Active / Suspended / Archived) in bulk</td></tr><tr><td>Bulk Notification</td><td>Send an in-app + push notification to all selected users</td></tr><tr><td>Bulk SMS</td><td>Send an SMS to all selected users</td></tr><tr><td>Bulk Roles</td><td>Assign or remove roles for all selected users</td></tr></tbody></table><div class="ecallout tip"><span>💡</span><div><strong>Background jobs:</strong> Large bulk actions are processed in the background. You get a job ID and can check its status (processing / completed / how many done).</div></div></div>
+</div>
+<div class="section-label">Support</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🎫</div>
+    <div class="card-content">
+      <div class="card-title">Support Tickets</div>
+      <div class="card-summary">Tickets submitted by users (e.g. "I didn't receive my reward"). Each has a status (open / in progress / resolved), an assignee, and a category. Reply to the user and mark resolved when done.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">❓</div>
+    <div class="card-content">
+      <div class="card-title">FAQs & FAQ Categories</div>
+      <div class="card-summary">Create and manage frequently asked questions shown in the app's help section. Organise them into categories (e.g. "Account", "Payments") to reduce support tickets.</div>
+    </div>
+  </div>
+  
+</div>
+<div class="doc-card">
+  <div class="card-main">
+    <div class="card-icon">🗂️</div>
+    <div class="card-content">
+      <div class="card-title">Support Request Categories</div>
+      <div class="card-summary">Define categories for tickets (e.g. "Technical", "Billing") to route and report on them.</div>
+    </div>
+  </div>
+  
+</div></div>
+
+</main>
+<script>
+const history_stack = [];
+
+function showPage(id, addHistory) {
+  const prev = document.querySelector('.page.active');
+  const prevId = prev ? prev.id.replace('page-','') : null;
+  if (prevId && prevId !== id && addHistory !== false) history_stack.push(prevId);
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) n.classList.add('active');
+  });
+  document.getElementById('main').scrollTo(0, 0);
+  const bb = document.getElementById('page-' + id).querySelector('.back-btn');
+  if (bb) bb.style.display = (history_stack.length > 0 && id !== 'home') ? 'flex' : 'none';
+}
+
+function goBack() {
+  if (history_stack.length > 0) {
+    const prev = history_stack.pop();
+    showPage(prev, false);
+  }
+}
+
+function toggleCard(id) {
+  const exp = document.getElementById('exp-' + id);
+  const lbl = document.getElementById('lbl-' + id);
+  const open = exp.classList.toggle('open');
+  lbl.textContent = open ? '▲ Hide details' : '▼ More details';
+}
+
+function filterNav(q) {
+  q = q.toLowerCase().trim();
+  document.querySelectorAll('.nav-item').forEach(item => {
+    const label = (item.dataset.label || '') + ' ' + item.textContent;
+    item.style.display = (!q || label.toLowerCase().includes(q)) ? 'flex' : 'none';
+  });
+  document.querySelectorAll('.nav-group').forEach(g => {
+    let next = g.nextElementSibling;
+    let anyVisible = false;
+    while (next && !next.classList.contains('nav-group')) {
+      if (next.style.display !== 'none') anyVisible = true;
+      next = next.nextElementSibling;
+    }
+    g.style.display = anyVisible ? 'block' : 'none';
+  });
+}
+window.addEventListener('DOMContentLoaded', () => showPage('home', false));
+</script>
+</body>
+</html>
